@@ -15,4 +15,4 @@ Provide the path to your export.xml as the first argument and `splitter` will ou
 
     ls *.xml | xargs -I {} zip "{}.zip" {}
 
-Once the files are zipped, just provide them to Health Data Importer individually. Please [create an issue](/issues/create) if you run into any problems at all.
+Once the files are zipped, just provide them to Health Data Importer individually. Please [create an issue](https://github.com/lionheart/Health-XML-Splitter/issues/new) if you run into any problems at all.
