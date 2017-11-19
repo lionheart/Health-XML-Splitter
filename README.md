@@ -1,8 +1,10 @@
 # Health Data Importer XML Splitter
 
+This binary was compiled on macOS 10.13.1, so if it does not work as expected, try recompiling on your local machine.
+
 Installation:
 
-    wget https://gist.github.com/dlo/64f7f2935a4e5c1c21e1e3f4bffed28c/raw/d19ad35d478bdc15396ec4b0c39826c52499224a/splitter
+    wget https://github.com/lionheart/Health-XML-Splitter/releases/download/v0.1.0-alpha/splitter
     chmod +x splitter
 
 Usage:
