@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		3701FFBB1F772C1300282157 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701FFBA1F772C1300282157 /* main.swift */; };
 		3701FFC21F772C8300282157 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701FFC11F772C8300282157 /* Parser.swift */; };
+		377DDE532156A90D0012329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE522156A90D0012329F /* AppDelegate.swift */; };
+		377DDE552156A90D0012329F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE542156A90D0012329F /* ViewController.swift */; };
+		377DDE572156A90D0012329F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377DDE562156A90D0012329F /* Assets.xcassets */; };
+		377DDE5A2156A90D0012329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377DDE582156A90D0012329F /* Main.storyboard */; };
+		377DDE612156AEF10012329F /* DragTargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE602156AEF10012329F /* DragTargetView.swift */; };
+		377DDE642156DC3F0012329F /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701FFC11F772C8300282157 /* Parser.swift */; };
+		A782BAE1320D4B00B8987355 /* Pods_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */; };
+		BA99615C6223B71B0087E5A1 /* Pods_Health_Data_Importer_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4F91151E509D1C08358313D /* Pods_Health_Data_Importer_XML_Splitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,9 +32,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		196E1C4C0BFCEF12BBE57D0C /* Pods-Health Data Importer XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health Data Importer XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
 		3701FFB71F772C1300282157 /* XML Splitter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "XML Splitter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3701FFBA1F772C1300282157 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3701FFC11F772C8300282157 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		377DDE502156A90D0012329F /* Health Data Importer XML Splitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Data Importer XML Splitter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		377DDE522156A90D0012329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		377DDE542156A90D0012329F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		377DDE562156A90D0012329F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		377DDE592156A90D0012329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		377DDE5B2156A90D0012329F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		377DDE5C2156A90D0012329F /* Health_Data_Importer_XML_Splitter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Health_Data_Importer_XML_Splitter.entitlements; sourceTree = "<group>"; };
+		377DDE602156AEF10012329F /* DragTargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragTargetView.swift; sourceTree = "<group>"; };
+		69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
+		87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
+		DEEA2B26A527A0B170637695 /* Pods-Health Data Importer XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health Data Importer XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
+		E4F91151E509D1C08358313D /* Pods_Health_Data_Importer_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Health_Data_Importer_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,17 +56,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A782BAE1320D4B00B8987355 /* Pods_XML_Splitter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		377DDE4D2156A90D0012329F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA99615C6223B71B0087E5A1 /* Pods_Health_Data_Importer_XML_Splitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		083EAE31E594CED0AE3F6AB3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DEEA2B26A527A0B170637695 /* Pods-Health Data Importer XML Splitter.debug.xcconfig */,
+				196E1C4C0BFCEF12BBE57D0C /* Pods-Health Data Importer XML Splitter.release.xcconfig */,
+				C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */,
+				69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3701FFAE1F772C1300282157 = {
 			isa = PBXGroup;
 			children = (
 				3701FFB91F772C1300282157 /* XML Splitter */,
+				377DDE512156A90D0012329F /* Health Data Importer XML Splitter */,
 				3701FFB81F772C1300282157 /* Products */,
+				083EAE31E594CED0AE3F6AB3 /* Pods */,
+				FFE72DD6908F96F18A52B54C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				3701FFB71F772C1300282157 /* XML Splitter */,
+				377DDE502156A90D0012329F /* Health Data Importer XML Splitter.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +111,29 @@
 			path = "XML Splitter";
 			sourceTree = "<group>";
 		};
+		377DDE512156A90D0012329F /* Health Data Importer XML Splitter */ = {
+			isa = PBXGroup;
+			children = (
+				377DDE522156A90D0012329F /* AppDelegate.swift */,
+				377DDE542156A90D0012329F /* ViewController.swift */,
+				377DDE602156AEF10012329F /* DragTargetView.swift */,
+				377DDE562156A90D0012329F /* Assets.xcassets */,
+				377DDE582156A90D0012329F /* Main.storyboard */,
+				377DDE5B2156A90D0012329F /* Info.plist */,
+				377DDE5C2156A90D0012329F /* Health_Data_Importer_XML_Splitter.entitlements */,
+			);
+			path = "Health Data Importer XML Splitter";
+			sourceTree = "<group>";
+		};
+		FFE72DD6908F96F18A52B54C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4F91151E509D1C08358313D /* Pods_Health_Data_Importer_XML_Splitter.framework */,
+				87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -72,6 +141,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3701FFBE1F772C1300282157 /* Build configuration list for PBXNativeTarget "XML Splitter" */;
 			buildPhases = (
+				CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */,
 				3701FFB31F772C1300282157 /* Sources */,
 				3701FFB41F772C1300282157 /* Frameworks */,
 				3701FFB51F772C1300282157 /* CopyFiles */,
@@ -85,18 +155,42 @@
 			productReference = 3701FFB71F772C1300282157 /* XML Splitter */;
 			productType = "com.apple.product-type.tool";
 		};
+		377DDE4F2156A90D0012329F /* Health Data Importer XML Splitter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health Data Importer XML Splitter" */;
+			buildPhases = (
+				9110DB82D965C4357F322C33 /* [CP] Check Pods Manifest.lock */,
+				377DDE4C2156A90D0012329F /* Sources */,
+				377DDE4D2156A90D0012329F /* Frameworks */,
+				377DDE4E2156A90D0012329F /* Resources */,
+				9BAF24DF0EADF829E299634D /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Health Data Importer XML Splitter";
+			productName = "Health Data Importer XML Splitter";
+			productReference = 377DDE502156A90D0012329F /* Health Data Importer XML Splitter.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3701FFAF1F772C1300282157 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Lionheart Software LLC";
 				TargetAttributes = {
 					3701FFB61F772C1300282157 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+					};
+					377DDE4F2156A90D0012329F = {
+						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -107,6 +201,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 3701FFAE1F772C1300282157;
 			productRefGroup = 3701FFB81F772C1300282157 /* Products */;
@@ -114,9 +209,91 @@
 			projectRoot = "";
 			targets = (
 				3701FFB61F772C1300282157 /* XML Splitter */,
+				377DDE4F2156A90D0012329F /* Health Data Importer XML Splitter */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		377DDE4E2156A90D0012329F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				377DDE572156A90D0012329F /* Assets.xcassets in Resources */,
+				377DDE5A2156A90D0012329F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9110DB82D965C4357F322C33 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Health Data Importer XML Splitter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BAF24DF0EADF829E299634D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XML Splitter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3701FFB31F772C1300282157 /* Sources */ = {
@@ -128,7 +305,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		377DDE4C2156A90D0012329F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				377DDE642156DC3F0012329F /* Parser.swift in Sources */,
+				377DDE612156AEF10012329F /* DragTargetView.swift in Sources */,
+				377DDE552156A90D0012329F /* ViewController.swift in Sources */,
+				377DDE532156A90D0012329F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		377DDE582156A90D0012329F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				377DDE592156A90D0012329F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3701FFBC1F772C1300282157 /* Debug */ = {
@@ -145,6 +344,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -152,6 +352,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -179,7 +380,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -202,6 +403,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -209,6 +411,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -230,7 +433,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -239,21 +442,66 @@
 		};
 		3701FFBF1F772C1300282157 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		3701FFC01F772C1300282157 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		377DDE5D2156A90D0012329F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEEA2B26A527A0B170637695 /* Pods-Health Data Importer XML Splitter.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "Health Data Importer XML Splitter/Health_Data_Importer_XML_Splitter.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lionheartsw.Health-Data-Importer-XML-Splitter";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		377DDE5E2156A90D0012329F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 196E1C4C0BFCEF12BBE57D0C /* Pods-Health Data Importer XML Splitter.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "Health Data Importer XML Splitter/Health_Data_Importer_XML_Splitter.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lionheartsw.Health-Data-Importer-XML-Splitter";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -274,6 +522,15 @@
 			buildConfigurations = (
 				3701FFBF1F772C1300282157 /* Debug */,
 				3701FFC01F772C1300282157 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health Data Importer XML Splitter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				377DDE5D2156A90D0012329F /* Debug */,
+				377DDE5E2156A90D0012329F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,6 +8,19 @@
 
 import Foundation
 
+enum ParserError: Error {
+    case dataCouldNotBeRead
+}
+
+protocol ParserDelegate {
+    var targetDirectoryPath: String? { get }
+
+    func parsingStarted()
+    func chunkCompleted(part: Int)
+    func parsingDidComplete()
+    func parsingFailed(error: Error)
+}
+
 let XMLCharacterMap: [(String, String)] = [
     ("&", "&amp;"),
     ("\"", "&quot;"),
@@ -57,6 +70,7 @@ final class Parser: NSObject {
     var url: URL!
     var currentChunk = 0
     var elementCount = 0
+    var delegate: ParserDelegate?
 
     init(filename: String, threshold: Int = 500000) {
         super.init()
@@ -78,12 +92,13 @@ final class Parser: NSObject {
         parser.parse()
     }
 
-    func writeToFile() {
+    func writeToFile() throws {
         // Write to queue.
-        let filename = "/tmp/export\(currentChunk).xml"
+        let target = delegate?.targetDirectoryPath ?? "/tmp"
+        let filename = "\(target)/export\(currentChunk).xml"
         guard let data = root?.stringValue.data(using: .utf8),
             let outputStream = OutputStream(toFileAtPath: filename, append: false) else {
-                fatalError()
+                throw ParserError.dataCouldNotBeRead
         }
 
         print("Chunk completed. Saving to \(filename).")
@@ -99,6 +114,7 @@ final class Parser: NSObject {
         } catch {}
 
         outputStream.close()
+        delegate?.chunkCompleted(part: currentChunk)
 
         elementCount = 0
         currentChunk += 1
@@ -144,12 +160,18 @@ extension Parser: XMLParserDelegate {
         self.element = element.parent
 
         if elementCount > threshold && element.parent?.name == root?.name {
-            writeToFile()
+            do {
+                try writeToFile()
+            } catch {
+                delegate?.parsingFailed(error: error)
+                return
+            }
         }
     }
 
     func parserDidStartDocument(_ parser: XMLParser) {
         print("Parsing started.")
+        delegate?.parsingStarted()
     }
 
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
@@ -157,7 +179,14 @@ extension Parser: XMLParserDelegate {
     }
 
     func parserDidEndDocument(_ parser: XMLParser) {
-        writeToFile()
+        do {
+            try writeToFile()
+        } catch {
+            delegate?.parsingFailed(error: error)
+            return
+        }
+
+        delegate?.parsingDidComplete()
     }
 
     func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
