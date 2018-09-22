@@ -1,0 +1,6 @@
+framework module Pods_Health_Data_Importer_XML_Splitter {
+  umbrella header "Pods-Health Data Importer XML Splitter-umbrella.h"
+
+  export *
+  module * { export * }
+}
