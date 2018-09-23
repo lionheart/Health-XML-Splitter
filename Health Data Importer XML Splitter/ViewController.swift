@@ -317,6 +317,8 @@ extension ViewController: ParserDelegate {
                 if let window = self.view.window {
                     alert.beginSheetModal(for: window) { response in
                         self.status = .waiting
+
+                        Process.launchedProcess(launchPath: "/usr/bin/open", arguments: [directory])
                     }
                 }
             }
