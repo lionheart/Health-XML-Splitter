@@ -132,23 +132,6 @@ final class ViewController: NSViewController, NSDraggingDestination {
         label.stringValue = ""
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        
-        let alert = NSAlert()
-        alert.addButton(withTitle: "OK")
-        alert.messageText = "Your health export has been split successfully! Click 'OK' to open the split files in Finder."
-        alert.alertStyle = .informational
-        
-        if let window = self.view.window {
-            alert.beginSheetModal(for: window) { response in
-                self.status = .waiting
-                
-                Process.launchedProcess(launchPath: "/usr/bin/open", arguments: [NSTemporaryDirectory()])
-            }
-        }
-    }
-    
     func displayInvalidFileTypeAlert() {
         let alert = NSAlert()
         alert.addButton(withTitle: "OK")
