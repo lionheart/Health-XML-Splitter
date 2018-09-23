@@ -115,7 +115,9 @@ final class Parser: NSObject {
             print("File System Reached Capacity")
         } catch OutputStreamWriteError.writeError {
             print("Write Error Occurred")
-        } catch {}
+        } catch {
+            print(error)
+        }
 
         outputStream.close()
         delegate?.chunkCompleted(part: currentChunk)
@@ -143,7 +145,11 @@ extension OutputStream {
         if result == 0 {
             throw OutputStreamWriteError.capacityReached
         } else if result == -1 {
-            throw OutputStreamWriteError.writeError
+            if let error = streamError {
+                throw error
+            } else {
+                throw OutputStreamWriteError.writeError
+            }
         } else {
             return result
         }

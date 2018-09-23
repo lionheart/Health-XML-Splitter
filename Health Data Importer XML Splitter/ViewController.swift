@@ -32,7 +32,15 @@ final class ViewController: NSViewController, NSDraggingDestination {
     }
 
     var fileName: String?
-    var directoryPath: String?
+    lazy var directoryPath: String? = {
+        guard let downloads = NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first?.appending("/Split_Health_Export") else {
+            return nil
+        }
+
+        try? FileManager.default.createDirectory(atPath: downloads, withIntermediateDirectories: true, attributes: nil)
+        return downloads
+    }()
+
     var status = Status.waiting {
         didSet {
             DispatchQueue.main.async {
@@ -187,7 +195,15 @@ extension ViewController: DragViewDelegate {
         status = .unzipping
         
         let zip = url.path
+        #if false
         let temp = NSTemporaryDirectory()
+        #else
+        guard let temp = NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first else {
+            // TODO!
+            return
+        }
+        #endif
+        
         directoryPath = temp
         let directoryUrl = URL(fileURLWithPath: temp)
         
@@ -286,8 +302,6 @@ extension ViewController: ParserDelegate {
         status = .complete
         print("ended")
 
-        let temp = NSTemporaryDirectory()
-        directoryPath = temp
         guard let directory = directoryPath,
             let scriptUrl = Bundle.main.url(forResource: "zipItUp", withExtension: "sh") else {
                 return

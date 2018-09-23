@@ -201,6 +201,11 @@
 					377DDE4F2156A90D0012329F = {
 						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -490,7 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lionheartsw.Health-Data-Importer-XML-Splitter";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -512,7 +517,7 @@
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lionheartsw.Health-Data-Importer-XML-Splitter";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
