@@ -10,8 +10,14 @@ import Cocoa
 
 @objc
 protocol DragViewDelegate {
+    var busy: Bool { get }
+
+    func dragDidStart()
+    func dragDidEnd()
     func dragView(didDragFileWith url: URL)
     func dragViewDidTouchUpInside()
+    func invalidFileTypeDragged()
+    func invalidFileTypeDropped()
 }
 
 class DragTargetView: NSView {
@@ -27,12 +33,19 @@ class DragTargetView: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
+        guard let busy = delegate?.busy,
+            !busy else {
+                return
+        }
+
         delegate?.dragViewDidTouchUpInside()
     }
     
     func checkExtensionForDrag(_ drag: NSDraggingInfo) -> Bool {
         guard let urlString = drag.draggedFileURL?.absoluteString,
-            let last = urlString.split(separator: ".").last else {
+            let last = urlString.split(separator: ".").last,
+            let busy = delegate?.busy,
+            !busy else {
             return false
         }
 
@@ -41,7 +54,17 @@ class DragTargetView: NSView {
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         isDroppedFileOk = checkExtensionForDrag(sender)
+        if isDroppedFileOk {
+            delegate?.dragDidStart()
+        } else {
+            delegate?.invalidFileTypeDragged()
+        }
+
         return []
+    }
+    
+    override func draggingExited(_ sender: NSDraggingInfo?) {
+        delegate?.dragDidEnd()
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -53,6 +76,10 @@ class DragTargetView: NSView {
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        if !isDroppedFileOk {
+            delegate?.invalidFileTypeDropped()
+        }
+
         guard let url = sender.draggedFileURL else {
             return false
         }

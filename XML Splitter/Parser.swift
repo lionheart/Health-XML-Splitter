@@ -15,7 +15,9 @@ enum ParserError: Error {
 protocol ParserDelegate {
     var targetDirectoryPath: String? { get }
 
+    func savingChunk(part: Int)
     func parsingStarted()
+    func chunkUpdate(part: Int, current: Int, total: Int)
     func chunkCompleted(part: Int)
     func parsingDidComplete()
     func parsingFailed(error: Error)
@@ -92,7 +94,9 @@ final class Parser: NSObject {
         parser.parse()
     }
 
-    func writeToFile() throws {
+    func writeToFile() throws {        
+        delegate?.savingChunk(part: currentChunk)
+
         // Write to queue.
         let target = delegate?.targetDirectoryPath ?? "/tmp"
         let filename = "\(target)/export\(currentChunk).xml"
@@ -158,6 +162,8 @@ extension Parser: XMLParserDelegate {
         element.parent?.children.append(element)
         elementCount += 1
         self.element = element.parent
+
+        delegate?.chunkUpdate(part: currentChunk, current: elementCount, total: threshold)
 
         if elementCount > threshold && element.parent?.name == root?.name {
             do {

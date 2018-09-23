@@ -92,6 +92,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j5v-wP-biN" userLabel="Inbox Image View">
+                                <rect key="frame" x="82" y="82" width="36" height="36"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Inbox Light" id="Yax-Hi-deV"/>
+                            </imageView>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="P6K-Lv-nyj">
+                                <rect key="frame" x="38" y="44" width="124" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Atn-ZT-eui"/>
+                                </constraints>
+                                <textFieldCell key="cell" selectable="YES" enabled="NO" alignment="center" title="Drop Health Export Here" id="ojf-mL-1b8">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="luh-1H-DaG">
                                 <rect key="frame" x="81" y="69" width="37" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="9IV-A3-jQl">
@@ -110,11 +125,11 @@
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="Ttf-gH-3cR"/>
                                 </connections>
                             </customView>
-                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="ovp-Y7-sJ4">
+                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="ovp-Y7-sJ4">
                                 <rect key="frame" x="92" y="92" width="16" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
-                            <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="0Qe-J9-wtf">
+                            <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="0Qe-J9-wtf">
                                 <rect key="frame" x="40" y="90" width="120" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="sg8-WU-8j2"/>
@@ -126,22 +141,28 @@
                             <constraint firstItem="Kn8-0f-Wvx" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="9ND-Fp-Omt"/>
                             <constraint firstItem="0Qe-J9-wtf" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="ChH-7n-GaV"/>
                             <constraint firstItem="luh-1H-DaG" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="Hps-XK-fS9"/>
+                            <constraint firstItem="j5v-wP-biN" firstAttribute="bottom" secondItem="P6K-Lv-nyj" secondAttribute="top" constant="-10" id="ItF-Jm-odT"/>
                             <constraint firstItem="luh-1H-DaG" firstAttribute="top" secondItem="0Qe-J9-wtf" secondAttribute="bottom" constant="5" id="MB2-7Y-c8U"/>
                             <constraint firstItem="Kn8-0f-Wvx" firstAttribute="top" secondItem="0Qe-J9-wtf" secondAttribute="bottom" constant="-109" id="MWs-mX-OWM"/>
+                            <constraint firstItem="j5v-wP-biN" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="Mgm-Lq-K94"/>
                             <constraint firstItem="Kn8-0f-Wvx" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="UMD-Qd-Ze5"/>
                             <constraint firstItem="JAc-YC-aWL" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="YQ5-d2-YHf"/>
                             <constraint firstAttribute="trailing" secondItem="Kn8-0f-Wvx" secondAttribute="trailing" id="hXT-Pu-jK3"/>
+                            <constraint firstItem="P6K-Lv-nyj" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="hk6-1p-aEp"/>
                             <constraint firstItem="JAc-YC-aWL" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="lb6-bP-ifU"/>
                             <constraint firstAttribute="bottom" secondItem="JAc-YC-aWL" secondAttribute="bottom" id="uHV-Ra-cIf"/>
                             <constraint firstItem="0Qe-J9-wtf" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="vsj-Kj-IU2"/>
                             <constraint firstAttribute="bottom" secondItem="Kn8-0f-Wvx" secondAttribute="bottom" id="wtL-zX-6Vs"/>
+                            <constraint firstItem="j5v-wP-biN" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="yeI-Kc-m8b"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="dragTargetView" destination="Kn8-0f-Wvx" id="Ez7-8C-Jiz"/>
                         <outlet property="horizontalProgressIndicator" destination="0Qe-J9-wtf" id="RSi-XP-7og"/>
                         <outlet property="imageView" destination="JAc-YC-aWL" id="Eax-Ak-l0i"/>
+                        <outlet property="inboxImageView" destination="j5v-wP-biN" id="Xpj-ZZ-l9U"/>
                         <outlet property="label" destination="luh-1H-DaG" id="Pi4-Kx-Yoj"/>
+                        <outlet property="mainLabel" destination="P6K-Lv-nyj" id="mGn-BS-abo"/>
                         <outlet property="progressIndicator" destination="ovp-Y7-sJ4" id="QCM-ej-DNp"/>
                     </connections>
                 </viewController>
@@ -152,5 +173,6 @@
     </scenes>
     <resources>
         <image name="Dropzone" width="200" height="200"/>
+        <image name="Inbox Light" width="36" height="36"/>
     </resources>
 </document>
