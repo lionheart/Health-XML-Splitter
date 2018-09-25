@@ -39,17 +39,17 @@
 		3701FFB71F772C1300282157 /* XML Splitter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "XML Splitter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3701FFBA1F772C1300282157 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3701FFC11F772C8300282157 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		377DDE502156A90D0012329F /* Health Data Importer XML Splitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Data Importer XML Splitter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		377DDE502156A90D0012329F /* Health XML Splitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health XML Splitter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		377DDE522156A90D0012329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377DDE542156A90D0012329F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		377DDE562156A90D0012329F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		377DDE592156A90D0012329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		377DDE5B2156A90D0012329F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		377DDE5C2156A90D0012329F /* Health_Data_Importer_XML_Splitter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Health_Data_Importer_XML_Splitter.entitlements; sourceTree = "<group>"; };
 		377DDE602156AEF10012329F /* DragTargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragTargetView.swift; sourceTree = "<group>"; };
 		377DDE652156EC600012329F /* ProcessableFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessableFileType.swift; sourceTree = "<group>"; };
 		377DDE672156EC760012329F /* URL+HealthXMLSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+HealthXMLSplitter.swift"; sourceTree = "<group>"; };
 		377DDE692156F7820012329F /* zipItUp.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = zipItUp.sh; sourceTree = "<group>"; };
+		37D8EF52215813C800F7246F /* Health Data Importer XML Splitter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Health Data Importer XML Splitter.entitlements"; sourceTree = "<group>"; };
 		69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
 		87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				3701FFB71F772C1300282157 /* XML Splitter */,
-				377DDE502156A90D0012329F /* Health Data Importer XML Splitter.app */,
+				377DDE502156A90D0012329F /* Health XML Splitter.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,6 +120,7 @@
 		377DDE512156A90D0012329F /* Health Data Importer XML Splitter */ = {
 			isa = PBXGroup;
 			children = (
+				37D8EF52215813C800F7246F /* Health Data Importer XML Splitter.entitlements */,
 				377DDE522156A90D0012329F /* AppDelegate.swift */,
 				377DDE692156F7820012329F /* zipItUp.sh */,
 				377DDE542156A90D0012329F /* ViewController.swift */,
@@ -129,7 +130,6 @@
 				377DDE562156A90D0012329F /* Assets.xcassets */,
 				377DDE582156A90D0012329F /* Main.storyboard */,
 				377DDE5B2156A90D0012329F /* Info.plist */,
-				377DDE5C2156A90D0012329F /* Health_Data_Importer_XML_Splitter.entitlements */,
 			);
 			path = "Health Data Importer XML Splitter";
 			sourceTree = "<group>";
@@ -164,9 +164,9 @@
 			productReference = 3701FFB71F772C1300282157 /* XML Splitter */;
 			productType = "com.apple.product-type.tool";
 		};
-		377DDE4F2156A90D0012329F /* Health Data Importer XML Splitter */ = {
+		377DDE4F2156A90D0012329F /* Health XML Splitter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health Data Importer XML Splitter" */;
+			buildConfigurationList = 377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health XML Splitter" */;
 			buildPhases = (
 				9110DB82D965C4357F322C33 /* [CP] Check Pods Manifest.lock */,
 				377DDE4C2156A90D0012329F /* Sources */,
@@ -178,9 +178,9 @@
 			);
 			dependencies = (
 			);
-			name = "Health Data Importer XML Splitter";
+			name = "Health XML Splitter";
 			productName = "Health Data Importer XML Splitter";
-			productReference = 377DDE502156A90D0012329F /* Health Data Importer XML Splitter.app */;
+			productReference = 377DDE502156A90D0012329F /* Health XML Splitter.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -203,6 +203,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
 								enabled = 1;
 							};
 						};
@@ -223,7 +226,7 @@
 			projectRoot = "";
 			targets = (
 				3701FFB61F772C1300282157 /* XML Splitter */,
-				377DDE4F2156A90D0012329F /* Health Data Importer XML Splitter */,
+				377DDE4F2156A90D0012329F /* Health XML Splitter */,
 			);
 		};
 /* End PBXProject section */
@@ -397,7 +400,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -450,7 +453,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -485,12 +488,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = "Health Data Importer XML Splitter/Health_Data_Importer_XML_Splitter.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Health Data Importer XML Splitter/Health Data Importer XML Splitter.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
-				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -508,12 +510,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = "Health Data Importer XML Splitter/Health_Data_Importer_XML_Splitter.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Health Data Importer XML Splitter/Health Data Importer XML Splitter.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
-				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_FAST_MATH = YES;
@@ -545,7 +546,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health Data Importer XML Splitter" */ = {
+		377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health XML Splitter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				377DDE5D2156A90D0012329F /* Debug */,

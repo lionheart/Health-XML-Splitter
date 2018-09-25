@@ -1,3 +1,4 @@
 *.xcarchive
 build/
 */Products/usr/local/bin
+Binaries/

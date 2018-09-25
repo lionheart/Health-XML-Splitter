@@ -32,14 +32,7 @@ final class ViewController: NSViewController, NSDraggingDestination {
     }
 
     var fileName: String?
-    lazy var directoryPath: String? = {
-        guard let downloads = NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first?.appending("/Split_Health_Export") else {
-            return nil
-        }
-
-        try? FileManager.default.createDirectory(atPath: downloads, withIntermediateDirectories: true, attributes: nil)
-        return downloads
-    }()
+    var directoryPath: String?
 
     var status = Status.waiting {
         didSet {
@@ -157,10 +150,14 @@ final class ViewController: NSViewController, NSDraggingDestination {
         guard let fileType = url.processableFileType else {
             return
         }
+
+        displayOpenPanel(canChooseFiles: false) { directoryURL in
+            self.directoryPath = directoryURL?.path
         
-        switch fileType {
-        case .xml: processXMLDocument(url: url)
-        case .zip: processZipFile(url: url)
+            switch fileType {
+            case .xml: self.processXMLDocument(url: url)
+            case .zip: self.processZipFile(url: url)
+            }
         }
     }
 }
@@ -261,21 +258,38 @@ extension ViewController: DragViewDelegate {
     }
     
     func dragViewDidTouchUpInside() {
-        let panel = NSOpenPanel()
-        panel.canChooseDirectories = false
-        panel.allowsMultipleSelection = false
-        panel.canChooseFiles = true
-        
-        guard let window = view.window else {
-            return
-        }
-
-        panel.beginSheetModal(for: window) { response in
-            guard let url = panel.url, response.rawValue == 1 else {
+        displayOpenPanel(canChooseFiles: true) { url in
+            guard let url = url else {
                 return
             }
             
             self.handleURL(url: url)
+        }
+    }
+    
+    func displayOpenPanel(canChooseFiles: Bool, _ callback: @escaping (URL?) -> ()) {
+        let panel = NSOpenPanel()
+        
+        if !canChooseFiles {
+            panel.message = "Select the folder in which you'd like the generated files to be placed."
+        }
+        
+        panel.allowsMultipleSelection = false
+        panel.canChooseFiles = canChooseFiles
+        panel.canChooseDirectories = !canChooseFiles
+        
+        guard let window = view.window else {
+            callback(nil)
+            return
+        }
+        
+        panel.beginSheetModal(for: window) { response in
+            guard let url = panel.url, response.rawValue == 1 else {
+                callback(nil)
+                return
+            }
+            
+            callback(url)
         }
     }
 }
