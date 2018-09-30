@@ -2,3 +2,4 @@
 build/
 */Products/usr/local/bin
 Binaries/
+*.app/
