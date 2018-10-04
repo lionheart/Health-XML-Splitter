@@ -192,18 +192,13 @@ extension ViewController: DragViewDelegate {
         status = .unzipping
         
         let zip = url.path
-        #if false
-        let temp = NSTemporaryDirectory()
-        #else
-        guard let temp = NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first else {
-            // TODO!
+        
+        guard let directoryPath = directoryPath else {
+            // TODO!!
             return
         }
-        #endif
-        
-        directoryPath = temp
-        let directoryUrl = URL(fileURLWithPath: temp)
-        
+
+        let directoryUrl = URL(fileURLWithPath: directoryPath)
         DispatchQueue.global(qos: .default).async {
             let manager = FileManager.default
             do {
@@ -215,7 +210,7 @@ extension ViewController: DragViewDelegate {
                 
             }
 
-            SSZipArchive.unzipFile(atPath: zip, toDestination: temp, progressHandler: nil) { path, succeeded, error in
+            SSZipArchive.unzipFile(atPath: zip, toDestination: directoryPath, progressHandler: nil) { path, succeeded, error in
                 var exportItem: URL?
                 let enumerator = manager.enumerator(at: directoryUrl.appendingPathComponent("apple_health_export"), includingPropertiesForKeys: [.isDirectoryKey], options: [], errorHandler: nil)
                 while let item = enumerator?.nextObject() as? URL {
