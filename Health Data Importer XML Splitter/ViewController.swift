@@ -212,24 +212,27 @@ extension ViewController: DragViewDelegate {
 
             SSZipArchive.unzipFile(atPath: zip, toDestination: directoryPath, progressHandler: nil) { path, succeeded, error in
                 var exportItem: URL?
-                let enumerator = manager.enumerator(at: directoryUrl.appendingPathComponent("apple_health_export"), includingPropertiesForKeys: [.isDirectoryKey], options: [], errorHandler: nil)
-                while let item = enumerator?.nextObject() as? URL {
-                    let resourceValues = try? item.resourceValues(forKeys: [.isDirectoryKey])
-                    guard let isDirectory = resourceValues?.isDirectory, !isDirectory else {
-                        continue
+                let enumerator1 = manager.enumerator(at: directoryUrl.appendingPathComponent("apple_health_export"), includingPropertiesForKeys: [.isDirectoryKey], options: [], errorHandler: nil)
+                let enumerator2 = manager.enumerator(at: directoryUrl, includingPropertiesForKeys: [.isDirectoryKey], options: [], errorHandler: nil)
+                outer: for enumerator in [enumerator1, enumerator2] {
+                    while let item = enumerator?.nextObject() as? URL {
+                        let resourceValues = try? item.resourceValues(forKeys: [.isDirectoryKey])
+                        guard let isDirectory = resourceValues?.isDirectory, !isDirectory else {
+                            continue
+                        }
+                        
+                        let component = item.lastPathComponent
+                        
+                        // Skip __MACOSX, .DS_Store, and export_cda.xml
+                        if component.contains("_") {
+                            continue
+                        }
+                        
+                        exportItem = item
+                        break outer
                     }
-                    
-                    let component = item.lastPathComponent
-                    
-                    // Skip __MACOSX, .DS_Store, and export_cda.xml
-                    if component.contains("_") {
-                        continue
-                    }
-                    
-                    exportItem = item
-                    break
                 }
-
+                
                 guard let item = exportItem else {
                     self.status = .waiting
                     DispatchQueue.main.async {
