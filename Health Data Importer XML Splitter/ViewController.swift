@@ -152,7 +152,19 @@ final class ViewController: NSViewController, NSDraggingDestination {
         }
 
         displayOpenPanel(canChooseFiles: false) { directoryURL in
-            self.directoryPath = directoryURL?.path
+            guard let newURL = directoryURL else {
+                return
+            }
+
+            var index = 0
+            var path = newURL.appendingPathComponent("Health-XML-Splitter-Output").path
+            let manager = FileManager.default
+            while manager.fileExists(atPath: path) {
+                index += 1
+                path = newURL.appendingPathComponent("Health-XML-Splitter-Output-\(index)").path
+            }
+
+            self.directoryPath = path
         
             switch fileType {
             case .xml: self.processXMLDocument(url: url)
