@@ -335,16 +335,15 @@ extension ViewController: ParserDelegate {
         let newFileUrl = directoryUrl.appendingPathComponent("zipItUp.sh")
         
         try? FileManager.default.removeItem(at: newFileUrl)
-
+        try? FileManager.default.copyItem(at: scriptUrl, to: newFileUrl)
+        
         do {
-            try FileManager.default.copyItem(at: scriptUrl, to: newFileUrl)
-            
             let process = Process()
             process.executableURL = URL(fileURLWithPath: "/bin/bash")
             process.arguments = [newFileUrl.path]
             process.currentDirectoryURL = directoryUrl
             try process.run()
-            
+
             status = .waiting
             DispatchQueue.main.async {
                 let alert = NSAlert()
@@ -360,11 +359,11 @@ extension ViewController: ParserDelegate {
                     }
                 }
             }
-        } catch {
+        } catch let error {
             DispatchQueue.main.async {
                 let alert = NSAlert()
                 alert.addButton(withTitle: "OK")
-                alert.messageText = "An error was encountered while completing the splitting process. Please try again."
+                alert.messageText = "An error was encountered while completing the splitting process (\(error.localizedDescription)). Please try again."
                 alert.alertStyle = .critical
                 
                 if let window = self.view.window {
