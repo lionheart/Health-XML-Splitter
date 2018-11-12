@@ -164,6 +164,8 @@ final class ViewController: NSViewController, NSDraggingDestination {
                 path = newURL.appendingPathComponent("Health-XML-Splitter-Output-\(index)").path
             }
 
+            try? manager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+
             self.directoryPath = path
         
             switch fileType {
