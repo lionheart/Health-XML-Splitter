@@ -81,11 +81,51 @@ final class Parser: NSObject {
         self.threshold = threshold
     }
 
+    func cleanStream(url: URL) -> InputStream? {
+        guard let stream = InputStream(url: url) else {
+            return nil
+        }
+
+        // https://stackoverflow.com/questions/42561020/reading-an-inputstream-into-a-data-object
+        // https://www.objc.io/blog/2018/02/13/string-to-data-and-back/
+        // Fixes the following parsing error:
+        //      ATTLIST: no name for Attribute (row 156, column 1).
+        // https://share.cleanshot.com/EJdVWQRVcw8qKgrAL76m
+        var data = Data()
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
+        stream.open()
+        var hasGoodDTD = true
+        var count = 0
+        while true {
+            count += 1
+            stream.read(buffer, maxLength: 1)
+            data.append(buffer, count: 1)
+
+            if count > 10000 {
+                break
+            }
+
+            // We break at 10000 since at this point, there's probably nothing wrong.
+            if let s = String(data: data, encoding: .utf8),
+               s.hasSuffix("]>") {
+                hasGoodDTD = false
+                break
+            }
+        }
+
+        if hasGoodDTD {
+            // Return a fresh DTD--no alterations
+            return InputStream(url: url)
+        }
+
+        return stream
+    }
+
     func start() {
         elementCount = 0
 
         guard let url = url,
-            let inputStream = InputStream(url: url) else {
+            let inputStream = cleanStream(url: url) else {
             fatalError()
         }
 
@@ -144,15 +184,17 @@ extension OutputStream {
         let result = data.withUnsafeBytes { write($0, maxLength: data.count) }
         if result == 0 {
             throw OutputStreamWriteError.capacityReached
-        } else if result == -1 {
+        }
+
+        if result == -1 {
             if let error = streamError {
                 throw error
             } else {
                 throw OutputStreamWriteError.writeError
             }
-        } else {
-            return result
         }
+
+        return result
     }
 }
 
