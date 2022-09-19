@@ -10,9 +10,7 @@
 #endif
 #endif
 
-#import "SSZipArchive.h"
-#import "SSZipCommon.h"
 
-FOUNDATION_EXPORT double SSZipArchiveVersionNumber;
-FOUNDATION_EXPORT const unsigned char SSZipArchiveVersionString[];
+FOUNDATION_EXPORT double Pods_Health_XML_SplitterVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_Health_XML_SplitterVersionString[];
 
