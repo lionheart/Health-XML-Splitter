@@ -18,8 +18,8 @@
 		377DDE662156EC600012329F /* ProcessableFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE652156EC600012329F /* ProcessableFileType.swift */; };
 		377DDE682156EC760012329F /* URL+HealthXMLSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE672156EC760012329F /* URL+HealthXMLSplitter.swift */; };
 		377DDE6A2156F8BA0012329F /* zipItUp.sh in Resources */ = {isa = PBXBuildFile; fileRef = 377DDE692156F7820012329F /* zipItUp.sh */; };
+		98718A6CF04F24FDEB3803C6 /* Pods_Health_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */; };
 		A782BAE1320D4B00B8987355 /* Pods_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */; };
-		BA99615C6223B71B0087E5A1 /* Pods_Health_Data_Importer_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4F91151E509D1C08358313D /* Pods_Health_Data_Importer_XML_Splitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,7 +35,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		196E1C4C0BFCEF12BBE57D0C /* Pods-Health Data Importer XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health Data Importer XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
 		3701FFB71F772C1300282157 /* XML Splitter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "XML Splitter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3701FFBA1F772C1300282157 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3701FFC11F772C8300282157 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -50,11 +49,12 @@
 		377DDE672156EC760012329F /* URL+HealthXMLSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+HealthXMLSplitter.swift"; sourceTree = "<group>"; };
 		377DDE692156F7820012329F /* zipItUp.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = zipItUp.sh; sourceTree = "<group>"; };
 		37D8EF52215813C800F7246F /* Health Data Importer XML Splitter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Health Data Importer XML Splitter.entitlements"; sourceTree = "<group>"; };
-		69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
+		3AF0F4BC3BC67CD63EE54B01 /* Pods-Health XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
 		87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
-		DEEA2B26A527A0B170637695 /* Pods-Health Data Importer XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health Data Importer XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
-		E4F91151E509D1C08358313D /* Pods_Health_Data_Importer_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Health_Data_Importer_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DE08A46EFF66B7CFAA5C8CE /* Pods-XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
+		D5D47A01012CA8A750637103 /* Pods-XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
+		DBB52FA437DF34E60E01DEA2 /* Pods-Health XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
+		E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Health_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA99615C6223B71B0087E5A1 /* Pods_Health_Data_Importer_XML_Splitter.framework in Frameworks */,
+				98718A6CF04F24FDEB3803C6 /* Pods_Health_XML_Splitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,10 +80,10 @@
 		083EAE31E594CED0AE3F6AB3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DEEA2B26A527A0B170637695 /* Pods-Health Data Importer XML Splitter.debug.xcconfig */,
-				196E1C4C0BFCEF12BBE57D0C /* Pods-Health Data Importer XML Splitter.release.xcconfig */,
-				C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */,
-				69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */,
+				D5D47A01012CA8A750637103 /* Pods-XML Splitter.debug.xcconfig */,
+				9DE08A46EFF66B7CFAA5C8CE /* Pods-XML Splitter.release.xcconfig */,
+				3AF0F4BC3BC67CD63EE54B01 /* Pods-Health XML Splitter.debug.xcconfig */,
+				DBB52FA437DF34E60E01DEA2 /* Pods-Health XML Splitter.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -137,8 +137,8 @@
 		FFE72DD6908F96F18A52B54C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4F91151E509D1C08358313D /* Pods_Health_Data_Importer_XML_Splitter.framework */,
 				87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */,
+				E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -168,11 +168,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health XML Splitter" */;
 			buildPhases = (
-				9110DB82D965C4357F322C33 /* [CP] Check Pods Manifest.lock */,
+				86F25758652AE2427DCE78FE /* [CP] Check Pods Manifest.lock */,
 				377DDE4C2156A90D0012329F /* Sources */,
 				377DDE4D2156A90D0012329F /* Frameworks */,
 				377DDE4E2156A90D0012329F /* Resources */,
-				9BAF24DF0EADF829E299634D /* [CP] Embed Pods Frameworks */,
+				974924A3DDD973246E236C91 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,7 +190,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Lionheart Software LLC";
 				TargetAttributes = {
 					3701FFB61F772C1300282157 = {
@@ -200,6 +200,7 @@
 					};
 					377DDE4F2156A90D0012329F = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -245,7 +246,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9110DB82D965C4357F322C33 /* [CP] Check Pods Manifest.lock */ = {
+		86F25758652AE2427DCE78FE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -260,33 +261,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Health Data Importer XML Splitter-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Health XML Splitter-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9BAF24DF0EADF829E299634D /* [CP] Embed Pods Frameworks */ = {
+		974924A3DDD973246E236C91 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Health Data Importer XML Splitter/Pods-Health Data Importer XML Splitter-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */ = {
@@ -375,6 +372,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -383,6 +381,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -400,7 +399,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -434,6 +434,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -442,6 +443,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -453,7 +455,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -462,9 +465,11 @@
 		};
 		3701FFBF1F772C1300282157 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C42123A54E2D27D44B620F74 /* Pods-XML Splitter.debug.xcconfig */;
+			baseConfigurationReference = D5D47A01012CA8A750637103 /* Pods-XML Splitter.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -473,9 +478,11 @@
 		};
 		3701FFC01F772C1300282157 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69C48A1C5278A9089BC23664 /* Pods-XML Splitter.release.xcconfig */;
+			baseConfigurationReference = 9DE08A46EFF66B7CFAA5C8CE /* Pods-XML Splitter.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -484,7 +491,7 @@
 		};
 		377DDE5D2156A90D0012329F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEEA2B26A527A0B170637695 /* Pods-Health Data Importer XML Splitter.debug.xcconfig */;
+			baseConfigurationReference = 3AF0F4BC3BC67CD63EE54B01 /* Pods-Health XML Splitter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -492,6 +499,8 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -500,13 +509,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		377DDE5E2156A90D0012329F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 196E1C4C0BFCEF12BBE57D0C /* Pods-Health Data Importer XML Splitter.release.xcconfig */;
+			baseConfigurationReference = DBB52FA437DF34E60E01DEA2 /* Pods-Health XML Splitter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -514,6 +523,8 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 25;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -521,7 +532,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
