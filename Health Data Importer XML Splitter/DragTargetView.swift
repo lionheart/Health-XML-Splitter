@@ -90,6 +90,7 @@ class DragTargetView: NSView {
 }
 
 extension NSDraggingInfo {
+    @MainActor
     var draggedFileURL: URL? {
         guard let data = draggingPasteboard.data(forType: .fileURL),
             let string = String(data: data, encoding: .utf8),

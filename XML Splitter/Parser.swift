@@ -12,15 +12,16 @@ enum ParserError: Error {
     case dataCouldNotBeRead
 }
 
-protocol ParserDelegate {
+@MainActor
+protocol ParserDelegate: Sendable {
     var targetDirectoryPath: String? { get }
 
-    func savingChunk(part: Int)
-    func parsingStarted()
-    func chunkUpdate(part: Int, current: Int, total: Int)
-    func chunkCompleted(part: Int)
-    func parsingDidComplete()
-    func parsingFailed(error: Error)
+    func savingChunk(part: Int) async
+    func parsingStarted() async
+    func chunkUpdate(part: Int, current: Int, total: Int) async
+    func chunkCompleted(part: Int) async
+    func parsingDidComplete() async
+    func parsingFailed(error: Error) async
 }
 
 let XMLCharacterMap: [(String, String)] = [
@@ -37,7 +38,8 @@ extension String {
     }
 }
 
-class Element {
+@MainActor
+final class Element {
     var parent: Element?
     var name: String
     var attributes: [String: String]
@@ -64,6 +66,7 @@ class Element {
     }
 }
 
+@MainActor
 final class Parser: NSObject {
     var root: Element?
     var element: Element?
@@ -72,6 +75,8 @@ final class Parser: NSObject {
     var url: URL!
     var currentChunk = 0
     var elementCount = 0
+    
+    @MainActor
     var delegate: ParserDelegate?
 
     init(filename: String, threshold: Int = 500000) {
@@ -134,8 +139,9 @@ final class Parser: NSObject {
         parser.parse()
     }
 
-    func writeToFile() throws {        
-        delegate?.savingChunk(part: currentChunk)
+    @MainActor
+    func writeToFile() async throws {
+        await delegate?.savingChunk(part: currentChunk)
 
         // Write to queue.
         let target = delegate?.targetDirectoryPath ?? "/tmp"
@@ -160,7 +166,7 @@ final class Parser: NSObject {
         }
 
         outputStream.close()
-        delegate?.chunkCompleted(part: currentChunk)
+        await delegate?.chunkCompleted(part: currentChunk)
 
         elementCount = 0
         currentChunk += 1
@@ -199,48 +205,53 @@ extension OutputStream {
 }
 
 // MARK: - XMLParserDelegate
-extension Parser: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        guard let element = element, elementName == element.name else {
-            // Keep going.
-            return
-        }
-
-        // The element is closed. Add it to the parent, if it exists.
-        element.parent?.children.append(element)
-        elementCount += 1
-        self.element = element.parent
-
-        delegate?.chunkUpdate(part: currentChunk, current: elementCount, total: threshold)
-
-        if elementCount > threshold && element.parent?.name == root?.name {
-            do {
-                try writeToFile()
-            } catch {
-                delegate?.parsingFailed(error: error)
+extension Parser: @preconcurrency XMLParserDelegate {
+    nonisolated func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        Task { @MainActor in
+            guard let element, elementName == element.name else {
+                // Keep going.
                 return
+            }
+
+            // The element is closed. Add it to the parent, if it exists.
+            element.parent?.children.append(element)
+            elementCount += 1
+            self.element = element.parent
+        
+            await delegate?.chunkUpdate(part: currentChunk, current: elementCount, total: threshold)
+            
+            if elementCount > threshold && element.parent?.name == root?.name {
+                do {
+                    try await writeToFile()
+                } catch {
+                    await delegate?.parsingFailed(error: error)
+                }
             }
         }
     }
 
-    func parserDidStartDocument(_ parser: XMLParser) {
+    nonisolated func parserDidStartDocument(_ parser: XMLParser) {
         print("Parsing started.")
-        delegate?.parsingStarted()
+        Task { @MainActor in
+            await delegate?.parsingStarted()
+        }
     }
 
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+    nonisolated func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         print("Parse error occurred: \(parseError.localizedDescription)")
     }
 
-    func parserDidEndDocument(_ parser: XMLParser) {
-        do {
-            try writeToFile()
-        } catch {
-            delegate?.parsingFailed(error: error)
-            return
-        }
+    nonisolated func parserDidEndDocument(_ parser: XMLParser) {
+        Task { @MainActor in
+            do {
+                try await writeToFile()
+            } catch {
+                await delegate?.parsingFailed(error: error)
+                return
+            }
 
-        delegate?.parsingDidComplete()
+            await delegate?.parsingDidComplete()
+        }
     }
 
     func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
