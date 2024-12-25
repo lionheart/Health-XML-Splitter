@@ -19,8 +19,7 @@
 		377DDE682156EC760012329F /* URL+HealthXMLSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE672156EC760012329F /* URL+HealthXMLSplitter.swift */; };
 		377DDE6A2156F8BA0012329F /* zipItUp.sh in Resources */ = {isa = PBXBuildFile; fileRef = 377DDE692156F7820012329F /* zipItUp.sh */; };
 		3793757F2D1C69D300CE8A3B /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = 3793757E2D1C69D300CE8A3B /* ZipArchive */; };
-		98718A6CF04F24FDEB3803C6 /* Pods_Health_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */; };
-		A782BAE1320D4B00B8987355 /* Pods_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */; };
+		379375812D1C6A3100CE8A3B /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = 379375802D1C6A3100CE8A3B /* ZipArchive */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A782BAE1320D4B00B8987355 /* Pods_XML_Splitter.framework in Frameworks */,
+				379375812D1C6A3100CE8A3B /* ZipArchive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +70,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98718A6CF04F24FDEB3803C6 /* Pods_Health_XML_Splitter.framework in Frameworks */,
 				3793757F2D1C69D300CE8A3B /* ZipArchive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,7 +168,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health XML Splitter" */;
 			buildPhases = (
-				86F25758652AE2427DCE78FE /* [CP] Check Pods Manifest.lock */,
 				377DDE4C2156A90D0012329F /* Sources */,
 				377DDE4D2156A90D0012329F /* Frameworks */,
 				377DDE4E2156A90D0012329F /* Resources */,
@@ -250,28 +247,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		86F25758652AE2427DCE78FE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Health XML Splitter-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -458,6 +433,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -471,6 +447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -494,6 +471,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
@@ -521,6 +499,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -574,6 +553,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		3793757E2D1C69D300CE8A3B /* ZipArchive */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3793757D2D1C69D300CE8A3B /* XCRemoteSwiftPackageReference "ZipArchive" */;
+			productName = ZipArchive;
+		};
+		379375802D1C6A3100CE8A3B /* ZipArchive */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3793757D2D1C69D300CE8A3B /* XCRemoteSwiftPackageReference "ZipArchive" */;
 			productName = ZipArchive;
