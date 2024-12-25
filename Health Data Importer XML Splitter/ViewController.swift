@@ -33,89 +33,88 @@ final class ViewController: NSViewController, NSDraggingDestination {
 
     var fileName: String?
     var directoryPath: String?
+    var blah: Status = .waiting
+    
+    func changeStatus(to newStatus: Status) {
+        let oldStatus = blah
+        blah = newStatus
+        switch newStatus {
+        case .waiting:
+            self.inboxImageView.isHidden = false
+            self.progressIndicator.isHidden = true
+            self.horizontalProgressIndicator.isHidden = true
+            self.imageView.isHidden = false
+            self.label.isHidden = true
+            self.mainLabel.isHidden = false
+            self.inboxImageView.image = NSImage(named: "Inbox Light")
+            self.view.layer?.backgroundColor = NSColor.clear.cgColor
+            self.mainLabel.stringValue = "Drop Health Export Here"
+            
+        case .dragging(let valid):
+            self.inboxImageView.isHidden = false
+            self.progressIndicator.isHidden = true
+            self.horizontalProgressIndicator.isHidden = true
+            self.imageView.isHidden = false
+            self.label.isHidden = true
+            self.mainLabel.isHidden = false
 
-    var status = Status.waiting {
-        didSet {
-            DispatchQueue.main.async {
-                switch self.status {
-                case .waiting:
-                    self.inboxImageView.isHidden = false
-                    self.progressIndicator.isHidden = true
-                    self.horizontalProgressIndicator.isHidden = true
-                    self.imageView.isHidden = false
-                    self.label.isHidden = true
-                    self.mainLabel.isHidden = false
-                    self.inboxImageView.image = NSImage(named: "Inbox Light")
-                    self.view.layer?.backgroundColor = NSColor.clear.cgColor
-                    self.mainLabel.stringValue = "Drop Health Export Here"
-                    
-                case .dragging(let valid):
-                    self.inboxImageView.isHidden = false
-                    self.progressIndicator.isHidden = true
-                    self.horizontalProgressIndicator.isHidden = true
-                    self.imageView.isHidden = false
-                    self.label.isHidden = true
-                    self.mainLabel.isHidden = false
+            if valid {
+                self.mainLabel.stringValue = "Drop it!"
+                
+                self.inboxImageView.image = NSImage(named: "Inbox")
+                self.imageView.isHidden = false
+                self.view.layer?.backgroundColor = NSColor.white.cgColor
+            } else {
+                self.mainLabel.stringValue = "Please provide a export.xml or export.zip file to continue."
 
-                    if valid {
-                        self.mainLabel.stringValue = "Drop it!"
-                        
-                        self.inboxImageView.image = NSImage(named: "Inbox")
-                        self.imageView.isHidden = false
-                        self.view.layer?.backgroundColor = NSColor.white.cgColor
-                    } else {
-                        self.mainLabel.stringValue = "Please provide a export.xml or export.zip file to continue."
-
-                        self.inboxImageView.image = NSImage(named: "Warning")
-                        self.imageView.isHidden = true
-                        let color = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 0.2)
-                        self.view.layer?.backgroundColor = color.cgColor
-                    }
-                    
-                case .unzipping:
-                    self.inboxImageView.isHidden = true
-                    self.progressIndicator.isHidden = false
-                    self.progressIndicator.startAnimation(nil)
-                    self.imageView.isHidden = true
-                    self.label.stringValue = "Unzipping..."
-                    self.label.isHidden = false
-                    self.mainLabel.isHidden = true
-                    
-                case .splitting(let chunk, let current, let maximum):
-                    if self.status != oldValue {
-                        self.inboxImageView.isHidden = true
-                        self.progressIndicator.isHidden = true
-                        self.horizontalProgressIndicator.isHidden = false
-                        self.horizontalProgressIndicator.startAnimation(nil)
-                        self.label.stringValue = "Splitting chunk \(chunk + 1)..."
-                        self.label.isHidden = false
-                        self.mainLabel.isHidden = true
-                        self.horizontalProgressIndicator.isIndeterminate = false
-                    } else {
-                        self.horizontalProgressIndicator.maxValue = Double(maximum)
-                        self.horizontalProgressIndicator.doubleValue = Double(current)
-                    }
-
-                case .saving(let current):
-                    self.inboxImageView.isHidden = true
-                    self.progressIndicator.isHidden = true
-                    self.horizontalProgressIndicator.isHidden = false
-                    self.horizontalProgressIndicator.startAnimation(nil)
-                    self.label.stringValue = "Saving chunk \(current + 1)..."
-                    self.label.isHidden = false
-                    self.mainLabel.isHidden = true
-                    self.horizontalProgressIndicator.isIndeterminate = true
-                    
-                case .complete:
-                    self.inboxImageView.isHidden = false
-                    self.progressIndicator.isHidden = true
-                    self.horizontalProgressIndicator.isHidden = true
-                    self.imageView.isHidden = false
-                    self.label.isHidden = true
-                    self.mainLabel.isHidden = false
-                    self.label.stringValue = "All Done!"
-                }
+                self.inboxImageView.image = NSImage(named: "Warning")
+                self.imageView.isHidden = true
+                let color = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 0.2)
+                self.view.layer?.backgroundColor = color.cgColor
             }
+            
+        case .unzipping:
+            self.inboxImageView.isHidden = true
+            self.progressIndicator.isHidden = false
+            self.progressIndicator.startAnimation(nil)
+            self.imageView.isHidden = true
+            self.label.stringValue = "Unzipping..."
+            self.label.isHidden = false
+            self.mainLabel.isHidden = true
+            
+        case .splitting(let chunk, let current, let maximum):
+            if newStatus != oldStatus {
+                self.inboxImageView.isHidden = true
+                self.progressIndicator.isHidden = true
+                self.horizontalProgressIndicator.isHidden = false
+                self.horizontalProgressIndicator.startAnimation(nil)
+                self.label.stringValue = "Splitting chunk \(chunk + 1)..."
+                self.label.isHidden = false
+                self.mainLabel.isHidden = true
+                self.horizontalProgressIndicator.isIndeterminate = false
+            } else {
+                self.horizontalProgressIndicator.maxValue = Double(maximum)
+                self.horizontalProgressIndicator.doubleValue = Double(current)
+            }
+
+        case .saving(let current):
+            self.inboxImageView.isHidden = true
+            self.progressIndicator.isHidden = true
+            self.horizontalProgressIndicator.isHidden = false
+            self.horizontalProgressIndicator.startAnimation(nil)
+            self.label.stringValue = "Saving chunk \(current + 1)..."
+            self.label.isHidden = false
+            self.mainLabel.isHidden = true
+            self.horizontalProgressIndicator.isIndeterminate = true
+            
+        case .complete:
+            self.inboxImageView.isHidden = false
+            self.progressIndicator.isHidden = true
+            self.horizontalProgressIndicator.isHidden = true
+            self.imageView.isHidden = false
+            self.label.isHidden = true
+            self.mainLabel.isHidden = false
+            self.label.stringValue = "All Done!"
         }
     }
 
@@ -139,10 +138,12 @@ final class ViewController: NSViewController, NSDraggingDestination {
         alert.messageText = "Please provide a valid Health.app XML export in either ZIP or XML format to use this utility."
         alert.alertStyle = .informational
         
-        if let window = view.window {
-            alert.beginSheetModal(for: window) { response in
-                self.status = .waiting
-            }
+        guard let window = view.window else {
+            return
+        }
+        
+        alert.beginSheetModal(for: window) { response in
+            self.changeStatus(to: .waiting)
         }
     }
 
@@ -176,25 +177,25 @@ final class ViewController: NSViewController, NSDraggingDestination {
     }
 }
 
-extension ViewController: DragViewDelegate {
+extension ViewController: @preconcurrency DragViewDelegate {
     func dragDidStart() {
-        status = .dragging(valid: true)
+        changeStatus(to: .dragging(valid: true))
     }
     
     func dragDidEnd() {
-        status = .waiting
+        changeStatus(to: .waiting)
     }
 
     func invalidFileTypeDragged() {
-        status = .dragging(valid: false)
+        changeStatus(to: .dragging(valid: false))
     }
     
     func invalidFileTypeDropped() {
-        status = .waiting
+        changeStatus(to: .waiting)
     }
     
     var busy: Bool {
-        return ![Status.waiting, Status.complete].contains(status)
+        return ![Status.waiting, Status.complete].contains(blah)
     }
     
     func dragView(didDragFileWith url: URL) {
@@ -203,7 +204,7 @@ extension ViewController: DragViewDelegate {
     
     func processZipFile(url: URL) {
         fileName = url.lastPathComponent
-        status = .unzipping
+        changeStatus(to: .unzipping)
         
         let zip = url.path
         
@@ -248,21 +249,24 @@ extension ViewController: DragViewDelegate {
                 }
                 
                 guard let item = exportItem else {
-                    self.status = .waiting
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
+                        self.changeStatus(to: .waiting)
                         self.displayInvalidFileTypeAlert()
                     }
                     
                     return
                 }
-                
-                self.processXMLDocument(url: item)
+
+                Task { @MainActor in
+                    self.processXMLDocument(url: item)
+                }
             }
         }
     }
     
+    @MainActor
     func processXMLDocument(url: URL) {
-        DispatchQueue.global(qos: .default).async {
+        Task { @MainActor in
             let parser = Parser(filename: url.path)
             parser.delegate = self
             parser.start()
@@ -308,76 +312,79 @@ extension ViewController: DragViewDelegate {
 
 extension ViewController: ParserDelegate {
     func savingChunk(part: Int) {
-        status = .saving(part)
+        changeStatus(to: .saving(part))
     }
-    
+
     func parsingFailed(error: Error) {
-        status = .waiting
+        changeStatus(to: .waiting)
         print(error)
     }
     
     func chunkUpdate(part: Int, current: Int, total: Int) {
-        status = .splitting(part, current, total)
+        changeStatus(to: .splitting(part, current, total))
     }
 
     func parsingStarted() {
-        status = .splitting(0, 0, 1)
+        changeStatus(to: .splitting(0, 0, 1))
     }
     
-    func parsingDidComplete() {
-        status = .complete
-        print("ended")
+    nonisolated func parsingDidComplete() {
+        Task { @MainActor in
+            changeStatus(to: .complete)
 
-        guard let directory = directoryPath,
-            let scriptUrl = Bundle.main.url(forResource: "zipItUp", withExtension: "sh") else {
-                return
-        }
-        
-        let directoryUrl = URL(fileURLWithPath: directory)
-        let newFileUrl = directoryUrl.appendingPathComponent("zipItUp.sh")
-        
-        try? FileManager.default.removeItem(at: newFileUrl)
-        try? FileManager.default.copyItem(at: scriptUrl, to: newFileUrl)
-        
-        do {
-            let process = Process()
-            process.executableURL = URL(fileURLWithPath: "/bin/bash")
-            process.arguments = [newFileUrl.path]
-            process.currentDirectoryURL = directoryUrl
-            try process.run()
+            print("ended")
 
-            status = .waiting
-            DispatchQueue.main.async {
-                let alert = NSAlert()
-                alert.addButton(withTitle: "OK")
-                alert.messageText = "Your health export has been split successfully! Click 'OK' to open the split files in Finder."
-                alert.alertStyle = .informational
-                
-                if let window = self.view.window {
-                    alert.beginSheetModal(for: window) { response in
-                        self.status = .waiting
+            guard let directory = directoryPath,
+                let scriptUrl = Bundle.main.url(forResource: "zipItUp", withExtension: "sh") else {
+                    return
+            }
+            
+            let directoryUrl = URL(fileURLWithPath: directory)
+            let newFileUrl = directoryUrl.appendingPathComponent("zipItUp.sh")
+            
+            try? FileManager.default.removeItem(at: newFileUrl)
+            try? FileManager.default.copyItem(at: scriptUrl, to: newFileUrl)
+            
+            do {
+                let process = Process()
+                process.executableURL = URL(fileURLWithPath: "/bin/bash")
+                process.arguments = [newFileUrl.path]
+                process.currentDirectoryURL = directoryUrl
+                try process.run()
 
-                        Process.launchedProcess(launchPath: "/usr/bin/open", arguments: [directory])
+                changeStatus(to: .waiting)
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.addButton(withTitle: "OK")
+                    alert.messageText = "Your health export has been split successfully! Click 'OK' to open the split files in Finder."
+                    alert.alertStyle = .informational
+                    
+                    if let window = self.view.window {
+                        alert.beginSheetModal(for: window) { response in
+                            self.changeStatus(to: .waiting)
+
+                            Process.launchedProcess(launchPath: "/usr/bin/open", arguments: [directory])
+                        }
+                    }
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.addButton(withTitle: "OK")
+                    alert.messageText = "An error was encountered while completing the splitting process (\(error.localizedDescription)). Please try again."
+                    alert.alertStyle = .critical
+                    
+                    if let window = self.view.window {
+                        alert.beginSheetModal(for: window) { response in
+                            self.changeStatus(to: .waiting)
+                        }
                     }
                 }
             }
-        } catch let error {
-            DispatchQueue.main.async {
-                let alert = NSAlert()
-                alert.addButton(withTitle: "OK")
-                alert.messageText = "An error was encountered while completing the splitting process (\(error.localizedDescription)). Please try again."
-                alert.alertStyle = .critical
-                
-                if let window = self.view.window {
-                    alert.beginSheetModal(for: window) { response in
-                        self.status = .waiting
-                    }
-                }
-            }
         }
     }
     
-    func chunkCompleted(part: Int) {
+    nonisolated func chunkCompleted(part: Int) {
     }
     
     var targetDirectoryPath: String? {
