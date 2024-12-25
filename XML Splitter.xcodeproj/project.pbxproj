@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		377DDE662156EC600012329F /* ProcessableFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE652156EC600012329F /* ProcessableFileType.swift */; };
 		377DDE682156EC760012329F /* URL+HealthXMLSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE672156EC760012329F /* URL+HealthXMLSplitter.swift */; };
 		377DDE6A2156F8BA0012329F /* zipItUp.sh in Resources */ = {isa = PBXBuildFile; fileRef = 377DDE692156F7820012329F /* zipItUp.sh */; };
+		3793757F2D1C69D300CE8A3B /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = 3793757E2D1C69D300CE8A3B /* ZipArchive */; };
 		98718A6CF04F24FDEB3803C6 /* Pods_Health_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */; };
 		A782BAE1320D4B00B8987355 /* Pods_XML_Splitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87C0DB769100B9853A455ED5 /* Pods_XML_Splitter.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98718A6CF04F24FDEB3803C6 /* Pods_Health_XML_Splitter.framework in Frameworks */,
+				3793757F2D1C69D300CE8A3B /* ZipArchive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +174,6 @@
 				377DDE4C2156A90D0012329F /* Sources */,
 				377DDE4D2156A90D0012329F /* Frameworks */,
 				377DDE4E2156A90D0012329F /* Resources */,
-				974924A3DDD973246E236C91 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -222,6 +223,9 @@
 				Base,
 			);
 			mainGroup = 3701FFAE1F772C1300282157;
+			packageReferences = (
+				3793757D2D1C69D300CE8A3B /* XCRemoteSwiftPackageReference "ZipArchive" */,
+			);
 			productRefGroup = 3701FFB81F772C1300282157 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -266,24 +270,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		974924A3DDD973246E236C91 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */ = {
@@ -459,7 +445,8 @@
 				MARKETING_VERSION = 1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -503,7 +490,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
@@ -527,7 +517,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -567,6 +560,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3793757D2D1C69D300CE8A3B /* XCRemoteSwiftPackageReference "ZipArchive" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZipArchive/ZipArchive.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3793757E2D1C69D300CE8A3B /* ZipArchive */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3793757D2D1C69D300CE8A3B /* XCRemoteSwiftPackageReference "ZipArchive" */;
+			productName = ZipArchive;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3701FFAF1F772C1300282157 /* Project object */;
 }
