@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import SSZipArchive
+import ZipArchive
 
 final class ViewController: NSViewController, NSDraggingDestination {
     enum Status: Equatable {
