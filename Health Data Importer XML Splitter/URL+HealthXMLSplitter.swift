@@ -9,7 +9,7 @@
 import Cocoa
 
 extension URL {
-    var processableFileType: ProcessableFileType? {
-        return ProcessableFileType(url: self)
-    }
+  var processableFileType: ProcessableFileType? {
+    return ProcessableFileType(url: self)
+  }
 }

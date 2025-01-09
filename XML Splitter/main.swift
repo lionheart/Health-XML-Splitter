@@ -9,8 +9,8 @@
 import Foundation
 
 guard CommandLine.arguments.count == 2 else {
-    print("Usage: ./splitter FILENAME")
-    exit(EXIT_FAILURE)
+  print("Usage: ./splitter FILENAME")
+  exit(EXIT_FAILURE)
 }
 
 let filename = CommandLine.arguments[1]

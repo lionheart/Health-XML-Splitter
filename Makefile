@@ -56,3 +56,5 @@ tag: quicklint generate_docs
 publish: tag
 	bundle exec pod trunk push --allow-warnings
 
+format:
+	swift format . --recursive --in-place

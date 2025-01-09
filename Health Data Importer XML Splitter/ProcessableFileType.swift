@@ -9,19 +9,20 @@
 import Cocoa
 
 enum ProcessableFileType {
-    case zip
-    case xml
-    
-    init?(url: URL?) {
-        guard let suffix = url?.path.split(separator: ".").last,
-            ["xml", "zip"].contains(String(suffix)) else {
-                return nil
-        }
-        
-        switch String(suffix) {
-        case "xml": self = .xml
-        case "zip": self = .zip
-        default: return nil
-        }
+  case zip
+  case xml
+
+  init?(url: URL?) {
+    guard let suffix = url?.path.split(separator: ".").last,
+      ["xml", "zip"].contains(String(suffix))
+    else {
+      return nil
     }
+
+    switch String(suffix) {
+    case "xml": self = .xml
+    case "zip": self = .zip
+    default: return nil
+    }
+  }
 }
