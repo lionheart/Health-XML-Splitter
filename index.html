@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Splitter with ZIP Support</title>
+    <style>
+        #drop-area {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #007BFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #007BFF;
+            font-size: 18px;
+        }
+        #drop-area.dragover {
+            background-color: #e9f5ff;
+        }
+    </style>
+</head>
+<body>
+    <div id="drop-area">Drag and drop an XML file or a ZIP file containing XML files here</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const chunkSize = 50000 * 1024; // 50000 KB chunks
+
+        // Handle drag-and-drop
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+
+        dropArea.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                const fileType = file.type;
+
+                if (fileType === 'application/zip') {
+                    await processZipFile(file);
+                } else if (fileType === 'text/xml' || file.name.endsWith('.xml')) {
+                    await processXMLFile(file);
+                } else {
+                    alert('Unsupported file type. Please upload an XML or ZIP file.');
+                }
+            }
+        });
+
+        // Process a single XML file
+        async function processXMLFile(file) {
+            console.log(`Processing XML file: ${file.name}`);
+            const zip = new JSZip();
+            const reader = file.stream().getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            let chunk = '';
+            let chunkIndex = 0;
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+
+                // Split chunks by size, ensuring valid XML structure
+                let lastTagEnd = 0;
+                while (chunk.length < chunkSize && (lastTagEnd = buffer.indexOf('>', lastTagEnd + 1)) !== -1) {
+                    chunk += buffer.substring(0, lastTagEnd + 1);
+                    buffer = buffer.substring(lastTagEnd + 1);
+                }
+
+                // Add completed chunks to the ZIP
+                if (chunk.length >= chunkSize) {
+                    zip.file(`${file.name}-chunk-${chunkIndex++}.xml`, chunk);
+                    chunk = '';
+                }
+            }
+
+            // Final chunk
+            if (chunk.length) {
+                zip.file(`${file.name}-chunk-${chunkIndex++}.xml`, chunk);
+            }
+
+            // Generate ZIP and trigger download
+            const zipBlob = await zip.generateAsync({ type: 'blob' });
+            downloadBlob(zipBlob, `${file.name}-chunks.zip`);
+        }
+
+        // Process a ZIP file
+        async function processZipFile(file) {
+            console.log(`Processing ZIP file: ${file.name}`);
+            const zip = new JSZip();
+            const unzipped = await JSZip.loadAsync(file);
+            const outputZip = new JSZip();
+
+            for (const [fileName, zipEntry] of Object.entries(unzipped.files)) {
+                if (!zipEntry.dir && fileName.endsWith('.xml')) {
+                    console.log(`Processing file inside ZIP: ${fileName}`);
+                    const xmlContent = await zipEntry.async('text');
+                    const fakeFile = new File([xmlContent], fileName, { type: 'text/xml' });
+                    await processXMLFileToZip(fakeFile, outputZip);
+                }
+            }
+
+            // Generate ZIP of all processed files
+            const zipBlob = await outputZip.generateAsync({ type: 'blob' });
+            downloadBlob(zipBlob, `${file.name}-processed.zip`);
+        }
+
+        // Process an XML file and add to an output ZIP
+        async function processXMLFileToZip(file, outputZip) {
+            const reader = file.stream().getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            let chunk = '';
+            let chunkIndex = 0;
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+
+                // Split chunks by size, ensuring valid XML structure
+                let lastTagEnd = 0;
+                while (chunk.length < chunkSize && (lastTagEnd = buffer.indexOf('>', lastTagEnd + 1)) !== -1) {
+                    chunk += buffer.substring(0, lastTagEnd + 1);
+                    buffer = buffer.substring(lastTagEnd + 1);
+                }
+
+                // Add completed chunks to the output ZIP
+                if (chunk.length >= chunkSize) {
+                    outputZip.file(`${file.name}-chunk-${chunkIndex++}.xml`, chunk);
+                    chunk = '';
+                }
+            }
+
+            // Final chunk
+            if (chunk.length) {
+                outputZip.file(`${file.name}-chunk-${chunkIndex++}.xml`, chunk);
+            }
+        }
+
+        // Trigger file download
+        function downloadBlob(blob, filename) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+    </script>
+</body>
+</html>

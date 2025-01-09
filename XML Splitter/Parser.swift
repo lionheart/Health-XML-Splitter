@@ -166,9 +166,9 @@ final class Parser: NSObject {
         currentChunk += 1
         root?.children.removeAll()
 
-        if let dateElement = exportDateElement {
-            dateElement.parent = root
-            root?.children.append(dateElement)
+        if let exportDateElement {
+            exportDateElement.parent = root
+            root?.children.append(exportDateElement)
         }
     }
 }
