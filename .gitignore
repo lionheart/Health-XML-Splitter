@@ -1,3 +1,4 @@
+.claude/
 *.xcarchive
 build/
 */Products/usr/local/bin
