@@ -31,51 +31,62 @@ If you encounter a problem, please [open an issue](https://github.com/lionheart/
 The current source targets macOS 13 and later, matching the [minimum supported
 version for Go 1.27](https://go.dev/doc/go1.27#darwin). Building requires Xcode and
 Go 1.27.1 or later. Open `XML Splitter.xcodeproj` and build the **Health XML
-Splitter** scheme. Its build phase compiles and statically links the Go engine
-for each architecture in Xcode's `ARCHS` setting (Apple Silicon and/or Intel).
-End users do not need Go installed. Set `GO_BINARY` to an absolute Go executable
-path if Go is not on Xcode's PATH; Homebrew's standard paths are also searched.
+Splitter** scheme. Its build phase generates a static `HealthSplitter.xcframework`
+with a universal macOS slice containing both Apple Silicon and Intel code.
+The app and CLI import its generated `HealthSplitter` module; the framework is
+linked statically and does not need to be embedded. End users do not need Go.
+
+The build compiles gomobile and gobind from the same version pinned by the
+`go.mod` tool directives and verified by `go.sum`. A first build needs network
+access to download the pinned tools and dependencies. No global gomobile
+installation or `gomobile init` is required. Set `GO_BINARY` to an absolute Go
+executable path if Go is not on Xcode's PATH; Homebrew's standard paths are also
+searched.
 
 The first stage of the cross-platform migration keeps the AppKit interface and
 moves XML sanitization, parsing, chunk boundaries, and XML output into Go:
 
 ```text
-AppKit → Parser.swift adapter → native/HealthSplitter.h → Go splitter
+AppKit → Parser.swift → generated Objective-C bindings → Go binding adapter → Go engine
 ```
 
-- `internal/splitter` contains the portable engine, with no UI or cgo dependency.
-- `cmd/splitter-library` translates the C ABI into calls to the engine.
-- `native/HealthSplitter.h` defines the boundary usable by native platform code.
-- `XML Splitter/Parser.swift` preserves the existing `ParserDelegate` interface.
+- `internal/splitter` contains the portable engine, with no UI or gomobile dependency.
+- `bindings/healthsplitter` exposes a small gomobile-compatible engine object and
+  progress interface using strings and signed integers.
+- `XML Splitter/Parser.swift` imports the generated module and preserves the
+  existing `ParserDelegate` interface. It implements the generated progress
+  protocol and calls the engine's throwing method using Swift `try`/`catch`.
 
 Calls are synchronous, so the Mac controller continues to use its background
-queue. Progress callbacks run on that calling thread and are borrowed only for
-the call's duration. The C interface uses UTF-8 paths and returns either `NULL`
-for success or an error string that must be released with `SplitterFreeString`.
-No Go pointers or Go-specific types cross the interface. The engine supports Go
-context cancellation; exposing cancellation through the C interface is a future
-step.
+queue. Progress is delivered on that worker thread; the existing controller
+marshals UI updates to the main queue. The adapter does not store the listener
+after the call, avoiding a persistent cross-language reference cycle. Generated
+bindings handle object lifetimes, strings, and Go errors (`NSError` in Objective-C and
+thrown errors in Swift), replacing the handwritten C header, callbacks, and
+allocation/free functions. The Go engine supports context cancellation; exposing
+it through the bindings is a future step. Other native platforms can wrap the
+same engine with their own bindings.
 
 The engine streams output instead of retaining an entire chunk in memory. It
 preserves the existing threshold rule: count all closed elements, then split
 after exceeding the threshold at a complete top-level record. Each chunk retains
 the root attributes, and subsequent chunks repeat `ExportDate`. XML formatting
 may differ from the old writer. Known invalid ASCII control characters are
-removed; structurally malformed XML now returns an error instead of using
-libxml2 recovery. Existing output files are never overwritten. On failure, the
+removed; structurally malformed XML returns an error to the caller.
+Existing output files are never overwritten. On failure, the
 unfinished chunk is removed and completed chunks remain.
 
 ZIP extraction, output compression, destination selection, and opening Finder
 remain in the Mac layer for this increment. Moving the ZIP pipeline into the Go
 engine is the next step toward supporting other native platform interfaces.
 
-Run the engine tests and the real Swift/C/Go integration test with:
+Run the engine tests and the Swift/gomobile/Go integration test with:
 
 ```sh
 go test -race ./...
 bash scripts/test-swift-bridge.sh
 ```
 
-Build a standalone static archive with `make go-library`. To include both Mac
-architectures, use `ARCHS="arm64 x86_64" make go-library`. Generated archives and
-headers are placed under the ignored `build/HealthSplitter` directory.
+Build the XCFramework separately with `make go-library`. The generated framework
+and local tool executables are placed under the ignored `build/HealthSplitter`
+directory. Xcode builds use a separate directory per target and configuration.

@@ -256,7 +256,7 @@
 			files = ();
 			inputPaths = ();
 			name = "Build Go engine";
-			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/libHealthSplitter.a");
+			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework");
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "bash \"$SRCROOT/scripts/build-go-library.sh\"";
@@ -268,7 +268,7 @@
 			files = ();
 			inputPaths = ();
 			name = "Build Go engine";
-			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/libHealthSplitter.a");
+			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework");
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "bash \"$SRCROOT/scripts/build-go-library.sh\"";
@@ -460,19 +460,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/native",
-				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lHealthSplitter",
+					"-framework",
+					HealthSplitter,
+					"-ObjC",
 					"-lresolv",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
-				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework/macos-arm64_x86_64");
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 4.2;
 			};
@@ -486,19 +483,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/native",
-				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lHealthSplitter",
+					"-framework",
+					HealthSplitter,
+					"-ObjC",
 					"-lresolv",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
-				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework/macos-arm64_x86_64");
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 4.2;
 			};
@@ -517,10 +511,6 @@
 				CURRENT_PROJECT_VERSION = 27;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/native",
-				);
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -533,14 +523,15 @@
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lHealthSplitter",
+					"-framework",
+					HealthSplitter,
+					"-ObjC",
 					"-lresolv",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
-				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework/macos-arm64_x86_64");
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 5.0;
 			};
@@ -559,10 +550,6 @@
 				CURRENT_PROJECT_VERSION = 27;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 63553QQ62F;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/native",
-				);
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -574,14 +561,15 @@
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lHealthSplitter",
+					"-framework",
+					HealthSplitter,
+					"-ObjC",
 					"-lresolv",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
-				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework/macos-arm64_x86_64");
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 5.0;
 			};

@@ -38,14 +38,26 @@ struct BridgeSmoke {
     let xml = try String(contentsOf: output.appendingPathComponent("export0.xml"), encoding: .utf8)
     precondition(xml.contains("é 🫀"))
 
-    // A second run must return an owned error across the ABI without reporting
+    // A second run must throw a generated NSError through Swift without reporting
     // completion or overwriting the first run's files.
     let failedDelegate = Delegate(directory: output)
     parser.delegate = failedDelegate
     parser.start()
     precondition(failedDelegate.failure != nil && !failedDelegate.completed)
+    precondition(failedDelegate.failure!.localizedDescription.contains("create chunk"))
     let preserved = try String(contentsOf: output.appendingPathComponent("export0.xml"), encoding: .utf8)
     precondition(preserved == xml)
-    print("Swift → C → Go bridge passed")
+
+    // Validation errors must also be delivered as Swift errors, before any
+    // output is created or progress callbacks are emitted.
+    let invalidOutput = directory.appendingPathComponent("invalid threshold")
+    let invalidDelegate = Delegate(directory: invalidOutput)
+    let invalidParser = Parser(filename: input.path, threshold: 0)
+    invalidParser.delegate = invalidDelegate
+    invalidParser.start()
+    precondition(invalidDelegate.failure?.localizedDescription.contains("threshold") == true)
+    precondition(!invalidDelegate.started && !invalidDelegate.completed)
+    precondition(!manager.fileExists(atPath: invalidOutput.path))
+    print("Swift → gomobile → Go bridge passed")
   }
 }

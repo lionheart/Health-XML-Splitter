@@ -4,22 +4,24 @@ set -euo pipefail
 cd "${SRCROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 go_binary="${GO_BINARY:-go}"
+# Child commands run by gomobile must use the same resolved Go toolchain.
+go_root="$("$go_binary" env GOROOT)"
+go_binary="$go_root/bin/go"
+export PATH="$go_root/bin:$PATH"
 output="${TARGET_TEMP_DIR:-$PWD/build}/HealthSplitter"
-mkdir -p "$output"
+mkdir -p "$output/tools"
 
-archives=()
-for architecture in ${ARCHS:-$(uname -m)}; do
-  case "$architecture" in
-    arm64) go_arch=arm64 ;;
-    x86_64) go_arch=amd64 ;;
-    *) echo "Unsupported macOS architecture: $architecture" >&2; exit 1 ;;
-  esac
-  archive="$output/$architecture/libHealthSplitter.a"
-  mkdir -p "$(dirname "$archive")"
-  GOOS=darwin GOARCH="$go_arch" CGO_ENABLED=1 \
-    CGO_CFLAGS="-arch $architecture -mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET:-13.0}" \
-    CGO_LDFLAGS="-arch $architecture -mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET:-13.0}" \
-    "$go_binary" build -trimpath -buildmode=c-archive -o "$archive" ./cmd/splitter-library
-  archives+=("$archive")
-done
-xcrun lipo -create "${archives[@]}" -output "$output/libHealthSplitter.a"
+# gomobile reconstructs the complete module graph for its generated build.
+# Resolve it here so download failures are reported before binding generation.
+"$go_binary" mod download all
+
+# Build both tools from the versions pinned by the go.mod tool directives.
+# gomobile finds gobind on PATH; no global installation or gomobile init is needed.
+"$go_binary" build -o "$output/tools/gomobile" golang.org/x/mobile/cmd/gomobile
+"$go_binary" build -o "$output/tools/gobind" golang.org/x/mobile/cmd/gobind
+export PATH="$output/tools:$PATH"
+
+# A single universal macOS slice works for both Xcode targets and configurations.
+gomobile bind -target=macos/arm64,macos/amd64 \
+  -macosversion="${MACOSX_DEPLOYMENT_TARGET:-13.0}" -trimpath \
+  -o "$output/HealthSplitter.xcframework" ./bindings/healthsplitter
