@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		3701FFBB1F772C1300282157 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701FFBA1F772C1300282157 /* main.swift */; };
 		3701FFC21F772C8300282157 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701FFC11F772C8300282157 /* Parser.swift */; };
-		37A1B0012D1D000000000001 /* SanitizingInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1B0002D1D000000000001 /* SanitizingInputStream.swift */; };
-		37A1B0022D1D000000000002 /* SanitizingInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1B0002D1D000000000001 /* SanitizingInputStream.swift */; };
 		377DDE532156A90D0012329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE522156A90D0012329F /* AppDelegate.swift */; };
 		377DDE552156A90D0012329F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DDE542156A90D0012329F /* ViewController.swift */; };
 		377DDE572156A90D0012329F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377DDE562156A90D0012329F /* Assets.xcassets */; };
@@ -40,7 +38,6 @@
 		3701FFB71F772C1300282157 /* XML Splitter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "XML Splitter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3701FFBA1F772C1300282157 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3701FFC11F772C8300282157 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		37A1B0002D1D000000000001 /* SanitizingInputStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanitizingInputStream.swift; sourceTree = "<group>"; };
 		377DDE502156A90D0012329F /* Health XML Splitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health XML Splitter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		377DDE522156A90D0012329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377DDE542156A90D0012329F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,7 +113,6 @@
 			children = (
 				3701FFBA1F772C1300282157 /* main.swift */,
 				3701FFC11F772C8300282157 /* Parser.swift */,
-				37A1B0002D1D000000000001 /* SanitizingInputStream.swift */,
 			);
 			path = "XML Splitter";
 			sourceTree = "<group>";
@@ -155,6 +151,7 @@
 			buildConfigurationList = 3701FFBE1F772C1300282157 /* Build configuration list for PBXNativeTarget "XML Splitter" */;
 			buildPhases = (
 				CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */,
+				37B000000000000000000001 /* Build Go engine */,
 				3701FFB31F772C1300282157 /* Sources */,
 				3701FFB41F772C1300282157 /* Frameworks */,
 				3701FFB51F772C1300282157 /* CopyFiles */,
@@ -172,6 +169,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 377DDE5F2156A90D0012329F /* Build configuration list for PBXNativeTarget "Health XML Splitter" */;
 			buildPhases = (
+				37B000000000000000000002 /* Build Go engine */,
 				377DDE4C2156A90D0012329F /* Sources */,
 				377DDE4D2156A90D0012329F /* Frameworks */,
 				377DDE4E2156A90D0012329F /* Resources */,
@@ -251,6 +249,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		37B000000000000000000001 /* Build Go engine */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = ();
+			name = "Build Go engine";
+			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/libHealthSplitter.a");
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "bash \"$SRCROOT/scripts/build-go-library.sh\"";
+		};
+		37B000000000000000000002 /* Build Go engine */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = ();
+			name = "Build Go engine";
+			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/libHealthSplitter.a");
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "bash \"$SRCROOT/scripts/build-go-library.sh\"";
+		};
+
 		CC1E1E4E737C4BE596A7E94E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3701FFC21F772C8300282157 /* Parser.swift in Sources */,
-				37A1B0012D1D000000000001 /* SanitizingInputStream.swift in Sources */,
 				3701FFBB1F772C1300282157 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +314,6 @@
 			files = (
 				377DDE682156EC760012329F /* URL+HealthXMLSplitter.swift in Sources */,
 				377DDE642156DC3F0012329F /* Parser.swift in Sources */,
-				37A1B0022D1D000000000002 /* SanitizingInputStream.swift in Sources */,
 				377DDE612156AEF10012329F /* DragTargetView.swift in Sources */,
 				377DDE552156A90D0012329F /* ViewController.swift in Sources */,
 				377DDE532156A90D0012329F /* AppDelegate.swift in Sources */,
@@ -366,7 +387,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.1.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -441,14 +462,18 @@
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/native",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lxml2",
+					"-lHealthSplitter",
+					"-lresolv",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
+				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -463,14 +488,18 @@
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/native",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lxml2",
+					"-lHealthSplitter",
+					"-lresolv",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
+				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
@@ -490,7 +519,7 @@
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/native",
 				);
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -498,17 +527,21 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lxml2",
+					"-lHealthSplitter",
+					"-lresolv",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
+				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -528,7 +561,7 @@
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/native",
 				);
 				INFOPLIST_FILE = "Health Data Importer XML Splitter/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -536,16 +569,20 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.1.1;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-lxml2",
+					"-lHealthSplitter",
+					"-lresolv",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.HealthDataImporter.XMLSplitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "XML Splitter/GoSplitter-Bridging-Header.h";
+				LIBRARY_SEARCH_PATHS = ("$(inherited)", "$(TARGET_TEMP_DIR)/HealthSplitter");
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

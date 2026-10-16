@@ -321,7 +321,16 @@ extension ViewController: ParserDelegate {
 
   func parsingFailed(error: Error) {
     status = .waiting
-    print(error)
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.alertStyle = .critical
+      alert.messageText = "The health export could not be split."
+      alert.informativeText = error.localizedDescription
+      alert.addButton(withTitle: "OK")
+      if let window = self.view.window {
+        alert.beginSheetModal(for: window)
+      }
+    }
   }
 
   func chunkUpdate(part: Int, current: Int, total: Int) {

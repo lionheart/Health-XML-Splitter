@@ -58,3 +58,14 @@ publish: tag
 
 format:
 	swift format . --recursive --in-place
+
+.PHONY: go-library test-go test-swift-bridge
+
+go-library:
+	bash scripts/build-go-library.sh
+
+test-go:
+	go test ./...
+
+test-swift-bridge:
+	bash scripts/test-swift-bridge.sh
