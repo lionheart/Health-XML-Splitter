@@ -12,60 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Usage: make VERSION=0.1.2
+GO ?= go
+GOFMT ?= gofmt
 
-PODFILE := $(shell find . -name "*.podspec" -depth 1)
-DIRECTORY := $(shell basename $(PODFILE) .podspec)
-AWS_S3_BUCKET_NAME := lionheart-opensource
-AWS_S3_REGION := us-east-2
-AWS_CF_DISTRIBUTION_ID := E33XE7TKGUV1ZD
+.DEFAULT_GOAL := build
+.PHONY: build test vet format format-go go-library test-go test-swift-bridge
 
-all: publish
-
-version_provided:
-	test -n "$(VERSION)"
-
-podspec_found:
-	test -n "$(PODFILE)"
-
-quicklint:
-	bundle exec pod spec lint --quick
-
-replace_text: podspec_found version_provided
-	sed -i "" "s/\(s.version[ ]*=[ ]\).*/\1 \"$(VERSION)\"/g" $(PODFILE)
-	sed -i "" "s/tree\/[\.0-9]*/tree\/$(VERSION)/g" .jazzy.yaml
-
-generate_docs: replace_text
-	bundle exec jazzy
-	git add docs/
-	git add .jazzy.yaml
-	-git commit -m "documentation update"
-	sync_directory_to_s3 "$(AWS_S3_REGION)" "$(AWS_S3_BUCKET_NAME)" "$(AWS_CF_DISTRIBUTION_ID)" "docs" "$(DIRECTORY)/"
-
-tag: quicklint generate_docs
-	git add .
-	# - ignores errors in this command
-	-git commit -m "bump version to $(VERSION)"
-	# Delete tag if already exists
-	-git tag -d $(VERSION)
-	-git push origin master :$(VERSION)
-	git tag $(VERSION)
-	git push origin master
-	git push --tags
-
-publish: tag
-	bundle exec pod trunk push --allow-warnings
-
-format:
-	swift format . --recursive --in-place
-
-.PHONY: go-library test-go test-swift-bridge
+build: go-library
 
 go-library:
-	bash scripts/build-go-library.sh
+	GO_BINARY="$(GO)" bash scripts/build-go-library.sh
+
+test: test-go test-swift-bridge
 
 test-go:
-	go test ./...
+	$(GO) test -race ./...
+
+vet:
+	$(GO) vet ./...
 
 test-swift-bridge:
-	bash scripts/test-swift-bridge.sh
+	GO_BINARY="$(GO)" bash scripts/test-swift-bridge.sh
+
+format: format-go
+	swift format --in-place "XML Splitter/Parser.swift" "XML Splitter/main.swift" tests/BridgeSmoke.swift
+
+format-go:
+	$(GOFMT) -w internal/splitter bindings/healthsplitter

@@ -13,7 +13,7 @@ mkdir -p "$output/tools"
 
 # gomobile reconstructs the complete module graph for its generated build.
 # Resolve it here so download failures are reported before binding generation.
-"$go_binary" mod download all
+"$go_binary" list -m all > /dev/null
 
 # Build both tools from the versions pinned by the go.mod tool directives.
 # gomobile finds gobind on PATH; no global installation or gomobile init is needed.

@@ -4,10 +4,10 @@ package splitter
 import (
 	"context"
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"io"
 	"os"
-	"path/filepath"
 )
 
 // Phase identifies a progress event.
@@ -38,12 +38,16 @@ type Options struct {
 }
 
 // SplitFile splits an XML file. Existing output files are never overwritten.
-func SplitFile(ctx context.Context, filename string, options Options) error {
+func SplitFile(ctx context.Context, filename string, options Options) (err error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return fmt.Errorf("open input: %w", err)
 	}
-	defer f.Close()
+	defer func() {
+		if closeErr := f.Close(); closeErr != nil {
+			err = errors.Join(err, fmt.Errorf("close input: %w", closeErr))
+		}
+	}()
 	return Split(ctx, f, options)
 }
 
@@ -51,7 +55,7 @@ func SplitFile(ctx context.Context, filename string, options Options) error {
 // the root attributes and repeating ExportDate in subsequent chunks. On failure
 // the unfinished chunk is removed; already completed chunks remain available.
 // Structurally malformed XML returns an error rather than silently recovering.
-func Split(ctx context.Context, input io.Reader, options Options) error {
+func Split(ctx context.Context, input io.Reader, options Options) (err error) {
 	if options.Threshold <= 0 {
 		return fmt.Errorf("threshold must be positive")
 	}
@@ -62,9 +66,9 @@ func Split(ctx context.Context, input io.Reader, options Options) error {
 		return fmt.Errorf("create output directory: %w", err)
 	}
 	s := &session{options: options}
-	defer s.abort()
+	defer func() { err = errors.Join(err, s.abort()) }()
 	s.report(Started)
-	decoder := xml.NewDecoder(&sanitizingReader{r: input})
+	decoder := xml.NewDecoder(newSanitizingReader(ctx, input))
 	depth := 0
 	rootClosed := false
 	capturingDate := false
@@ -80,7 +84,7 @@ func Split(ctx context.Context, input io.Reader, options Options) error {
 			return nil
 		}
 		if err != nil {
-			return fmt.Errorf("parse XML: %w", err)
+			return fmt.Errorf("parse xml: %w", err)
 		}
 		if depth == 0 {
 			switch t := token.(type) {
@@ -115,6 +119,10 @@ func Split(ctx context.Context, input io.Reader, options Options) error {
 			continue
 		}
 		if s.file == nil {
+			switch token.(type) {
+			case xml.Comment, xml.ProcInst:
+				continue
+			}
 			if err := s.open(); err != nil {
 				return err
 			}
@@ -129,7 +137,7 @@ func Split(ctx context.Context, input io.Reader, options Options) error {
 			s.exportDate = append(s.exportDate, xml.CopyToken(token))
 		}
 		if err := s.encoder.EncodeToken(token); err != nil {
-			return fmt.Errorf("write XML: %w", err)
+			return fmt.Errorf("write xml: %w", err)
 		}
 		if _, ok := token.(xml.EndElement); ok {
 			depth--
@@ -156,73 +164,4 @@ func whitespace(data []byte) bool {
 		}
 	}
 	return true
-}
-
-type session struct {
-	options    Options
-	root       xml.StartElement
-	exportDate []xml.Token
-	file       *os.File
-	encoder    *xml.Encoder
-	part       int
-	count      int
-}
-
-func (s *session) report(phase Phase) {
-	if s.options.Progress != nil {
-		s.options.Progress(Progress{Phase: phase, Part: s.part, Current: s.count, Total: s.options.Threshold})
-	}
-}
-
-func (s *session) open() error {
-	filename := filepath.Join(s.options.OutputDirectory, fmt.Sprintf("export%d.xml", s.part))
-	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
-	if err != nil {
-		return fmt.Errorf("create chunk: %w", err)
-	}
-	s.file = f
-	s.encoder = xml.NewEncoder(f)
-	if _, err := io.WriteString(f, xml.Header); err != nil {
-		return fmt.Errorf("write XML header: %w", err)
-	}
-	if err := s.encoder.EncodeToken(s.root); err != nil {
-		return fmt.Errorf("write root: %w", err)
-	}
-	if s.part > 0 {
-		for _, token := range s.exportDate {
-			if err := s.encoder.EncodeToken(token); err != nil {
-				return fmt.Errorf("write export date: %w", err)
-			}
-		}
-	}
-	return nil
-}
-
-func (s *session) finish() error {
-	if s.file == nil {
-		return nil
-	}
-	s.report(Saving)
-	if err := s.encoder.EncodeToken(s.root.End()); err != nil {
-		return fmt.Errorf("close root: %w", err)
-	}
-	if err := s.encoder.Close(); err != nil {
-		return fmt.Errorf("flush XML: %w", err)
-	}
-	if err := s.file.Close(); err != nil {
-		return fmt.Errorf("close chunk: %w", err)
-	}
-	s.file = nil
-	s.report(ChunkCompleted)
-	s.part++
-	s.count = 0
-	return nil
-}
-
-func (s *session) abort() {
-	if s.file != nil {
-		name := s.file.Name()
-		s.file.Close()
-		os.Remove(name)
-	}
 }

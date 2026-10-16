@@ -45,7 +45,8 @@ struct BridgeSmoke {
     parser.start()
     precondition(failedDelegate.failure != nil && !failedDelegate.completed)
     precondition(failedDelegate.failure!.localizedDescription.contains("create chunk"))
-    let preserved = try String(contentsOf: output.appendingPathComponent("export0.xml"), encoding: .utf8)
+    let preserved = try String(
+      contentsOf: output.appendingPathComponent("export0.xml"), encoding: .utf8)
     precondition(preserved == xml)
 
     // Validation errors must also be delivered as Swift errors, before any
@@ -58,6 +59,18 @@ struct BridgeSmoke {
     precondition(invalidDelegate.failure?.localizedDescription.contains("threshold") == true)
     precondition(!invalidDelegate.started && !invalidDelegate.completed)
     precondition(!manager.fileExists(atPath: invalidOutput.path))
+
+    let malformed = directory.appendingPathComponent("malformed.xml")
+    try "<HealthData><Record>".write(to: malformed, atomically: true, encoding: .utf8)
+    let malformedOutput = directory.appendingPathComponent("malformed output")
+    let malformedDelegate = Delegate(directory: malformedOutput)
+    let malformedParser = Parser(filename: malformed.path)
+    malformedParser.delegate = malformedDelegate
+    malformedParser.start()
+    precondition(!malformedDelegate.completed)
+    precondition(malformedDelegate.failure?.localizedDescription.contains("parse xml") == true)
+    let malformedFiles = try manager.contentsOfDirectory(atPath: malformedOutput.path)
+    precondition(malformedFiles.isEmpty)
     print("Swift → gomobile → Go bridge passed")
   }
 }

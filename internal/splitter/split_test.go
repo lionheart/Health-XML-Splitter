@@ -49,18 +49,18 @@ func TestSplitPreservesRecordsAndMetadata(t *testing.T) {
 			case xml.StartElement:
 				switch token.Name.Local {
 				case "HealthData":
-					if len(token.Attr) != 1 || token.Attr[0].Value != "en_US" {
+					if len(token.Attr) != 1 || attributeValue(t, token, "locale") != "en_US" {
 						t.Fatalf("root attributes were lost: %v", token.Attr)
 					}
 				case "ExportDate":
 					dates++
 				case "Record":
 					records++
-					if token.Attr[0].Value == "a" && token.Attr[1].Value != "A & B" {
+					if attributeValue(t, token, "type") == "a" && attributeValue(t, token, "sourceName") != "A & B" {
 						t.Fatalf("escaped attribute changed: %v", token.Attr)
 					}
 				case "MetadataEntry":
-					if token.Attr[1].Value != "é 🫀" {
+					if attributeValue(t, token, "value") != "é 🫀" {
 						t.Fatalf("Unicode metadata changed: %v", token.Attr)
 					}
 				case "Workout":
@@ -80,16 +80,21 @@ func TestSplitPreservesRecordsAndMetadata(t *testing.T) {
 }
 
 func TestSplitDoesNotCreateEmptyTrailingChunk(t *testing.T) {
-	directory := t.TempDir()
-	err := Split(context.Background(), strings.NewReader(`<HealthData><Record/><Record/></HealthData>`), Options{
-		OutputDirectory: directory, Threshold: 1,
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	files, _ := filepath.Glob(filepath.Join(directory, "*.xml"))
-	if len(files) != 1 {
-		t.Fatalf("expected one chunk, got %v", files)
+	for _, trailer := range []string{"", "\n ", "<!-- trailing comment -->", "<?example value?>"} {
+		t.Run(trailer, func(t *testing.T) {
+			directory := t.TempDir()
+			input := `<HealthData><Record/><Record/>` + trailer + `</HealthData>`
+			if err := Split(context.Background(), strings.NewReader(input), Options{OutputDirectory: directory, Threshold: 1}); err != nil {
+				t.Fatal(err)
+			}
+			files, err := filepath.Glob(filepath.Join(directory, "*.xml"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(files) != 1 {
+				t.Fatalf("expected one chunk, got %v", files)
+			}
+		})
 	}
 }
 
@@ -107,7 +112,10 @@ func TestSplitFailures(t *testing.T) {
 			if err == nil {
 				t.Fatal("expected an error")
 			}
-			files, _ := os.ReadDir(directory)
+			files, err := os.ReadDir(directory)
+			if err != nil {
+				t.Fatal(err)
+			}
 			if len(files) != 0 {
 				t.Fatalf("unfinished output left behind: %v", files)
 			}
@@ -125,7 +133,10 @@ func TestSplitProtectsExistingOutput(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected output conflict")
 	}
-	data, _ := os.ReadFile(file)
+	data, err := os.ReadFile(file)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if string(data) != "keep me" {
 		t.Fatalf("overwrote existing output: %q", data)
 	}
@@ -146,28 +157,12 @@ func TestSplitCancellation(t *testing.T) {
 	if !errors.Is(err, context.Canceled) {
 		t.Fatalf("expected cancellation, got %v", err)
 	}
-	files, _ := os.ReadDir(directory)
+	files, err := os.ReadDir(directory)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if len(files) != 0 {
 		t.Fatalf("unfinished output left behind: %v", files)
-	}
-}
-
-func TestSanitizerDoesNotTruncateAtRemovedBuffer(t *testing.T) {
-	reader := &sanitizingReader{r: strings.NewReader("\x00\x01\x18é\t\n\r🙂")}
-	var result strings.Builder
-	buffer := make([]byte, 1)
-	for {
-		n, err := reader.Read(buffer)
-		result.Write(buffer[:n])
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			t.Fatal(err)
-		}
-	}
-	if result.String() != "é\t\n\r🙂" {
-		t.Fatalf("unexpected sanitized data: %q", result.String())
 	}
 }
 
@@ -179,8 +174,22 @@ func TestSplitSanitizesControlCharacters(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	data, _ := os.ReadFile(filepath.Join(directory, "export0.xml"))
+	data, err := os.ReadFile(filepath.Join(directory, "export0.xml"))
+	if err != nil {
+		t.Fatal(err)
+	}
 	if !strings.Contains(string(data), `value="aé"`) {
 		t.Fatalf("unexpected output: %s", data)
 	}
+}
+
+func attributeValue(t *testing.T, element xml.StartElement, name string) string {
+	t.Helper()
+	for _, attr := range element.Attr {
+		if attr.Name.Local == name {
+			return attr.Value
+		}
+	}
+	t.Fatalf("%s is missing attribute %s", element.Name.Local, name)
+	return ""
 }

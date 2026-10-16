@@ -50,9 +50,13 @@ moves XML sanitization, parsing, chunk boundaries, and XML output into Go:
 AppKit → Parser.swift → generated Objective-C bindings → Go binding adapter → Go engine
 ```
 
-- `internal/splitter` contains the portable engine, with no UI or gomobile dependency.
+- `internal/splitter` contains the portable engine, with XML parsing in `split.go`,
+  chunk-file ownership and cleanup in `chunks.go`, and stream sanitization in
+  `sanitize.go`. It has no UI or gomobile dependency.
 - `bindings/healthsplitter` exposes a small gomobile-compatible engine object and
-  progress interface using strings and signed integers.
+  progress interface using strings and signed integers. The adapter forwards
+  progress at most every 50 ms between chunk boundaries, keeping large exports
+  from flooding the native UI with per-record updates.
 - `XML Splitter/Parser.swift` imports the generated module and preserves the
   existing `ParserDelegate` interface. It implements the generated progress
   protocol and calls the engine's throwing method using Swift `try`/`catch`.
@@ -73,20 +77,24 @@ after exceeding the threshold at a complete top-level record. Each chunk retains
 the root attributes, and subsequent chunks repeat `ExportDate`. XML formatting
 may differ from the old writer. Known invalid ASCII control characters are
 removed; structurally malformed XML returns an error to the caller.
-Existing output files are never overwritten. On failure, the
-unfinished chunk is removed and completed chunks remain.
+Existing output files are never overwritten. On failure, the unfinished chunk
+is removed and completed chunks remain; any cleanup failure is included in the
+returned error.
 
 ZIP extraction, output compression, destination selection, and opening Finder
 remain in the Mac layer for this increment. Moving the ZIP pipeline into the Go
 engine is the next step toward supporting other native platform interfaces.
 
+The Makefile defaults to building the XCFramework and has focused build, test,
+vet, and formatting targets. Override `GO` to select a particular Go executable.
 Run the engine tests and the Swift/gomobile/Go integration test with:
 
 ```sh
-go test -race ./...
-bash scripts/test-swift-bridge.sh
+make test vet
 ```
 
 Build the XCFramework separately with `make go-library`. The generated framework
 and local tool executables are placed under the ignored `build/HealthSplitter`
 directory. Xcode builds use a separate directory per target and configuration.
+GitHub Actions runs Go race tests and vet on Linux, and builds the universal
+framework and exercises the Swift integration on macOS.

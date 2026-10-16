@@ -4,19 +4,10 @@ package healthsplitter
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/lionheart/Health-XML-Splitter/internal/splitter"
 )
-
-// Progress receives synchronous events on the thread calling SplitFile. The
-// listener is held only for that call; native UIs must dispatch UI updates to
-// their main thread. Chunk indices are zero-based.
-type Progress interface {
-	Started()
-	Updated(part, current, total int64)
-	Saving(part int64)
-	ChunkCompleted(part int64)
-}
 
 // Engine provides Objective-C methods that Swift imports with throws support.
 // Its zero value is ready to use; each SplitFile call owns its processing session.
@@ -30,18 +21,11 @@ func (e *Engine) SplitFile(filename, outputDirectory string, threshold int64, pr
 	}
 	options := splitter.Options{OutputDirectory: outputDirectory, Threshold: int(threshold)}
 	if progress != nil {
-		options.Progress = func(p splitter.Progress) {
-			switch p.Phase {
-			case splitter.Started:
-				progress.Started()
-			case splitter.Updated:
-				progress.Updated(int64(p.Part), int64(p.Current), int64(p.Total))
-			case splitter.Saving:
-				progress.Saving(int64(p.Part))
-			case splitter.ChunkCompleted:
-				progress.ChunkCompleted(int64(p.Part))
-			}
-		}
+		reporter := &progressReporter{listener: progress}
+		options.Progress = func(p splitter.Progress) { reporter.report(p, time.Now()) }
 	}
-	return splitter.SplitFile(context.Background(), filename, options)
+	if err := splitter.SplitFile(context.Background(), filename, options); err != nil {
+		return fmt.Errorf("split export %q: %w", filename, err)
+	}
+	return nil
 }

@@ -30,7 +30,8 @@ final class Parser: NSObject, HealthsplitterProgressProtocol {
     let output = delegate?.targetDirectoryPath ?? "/tmp"
     let engine = HealthsplitterEngine()
     do {
-      try engine.splitFile(filename, outputDirectory: output, threshold: Int64(threshold), progress: self)
+      try engine.splitFile(
+        filename, outputDirectory: output, threshold: Int64(threshold), progress: self)
     } catch {
       delegate?.parsingFailed(error: error)
       return
