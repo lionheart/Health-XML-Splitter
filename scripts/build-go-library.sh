@@ -2,7 +2,8 @@
 set -euo pipefail
 
 cd "${SRCROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+# Respect a configured toolchain on PATH; Xcode can also discover Homebrew Go.
+export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
 go_binary="${GO_BINARY:-go}"
 # Child commands run by gomobile must use the same resolved Go toolchain.
 go_root="$("$go_binary" env GOROOT)"

@@ -36,6 +36,13 @@ with a universal macOS slice containing both Apple Silicon and Intel code.
 The app and CLI import its generated `HealthSplitter` module; the framework is
 linked statically and does not need to be embedded. End users do not need Go.
 
+The project navigator's **Go** group contains the engine and bindings, their Go
+tests, `go.mod`, `go.sum`, the Makefile, build scripts, and Swift integration test.
+The Go files are editable project references. Both Xcode targets run the **Build
+Go engine** phase before compiling Swift, so normal Build/Run actions pick up Go
+edits and regenerate the framework without a separate terminal build. The script
+uses Go's build cache and also runs when new Go files are added to the module.
+
 The build compiles gomobile and gobind from the same version pinned by the
 `go.mod` tool directives and verified by `go.sum`. A first build needs network
 access to download the pinned tools and dependencies. No global gomobile
@@ -97,4 +104,5 @@ Build the XCFramework separately with `make go-library`. The generated framework
 and local tool executables are placed under the ignored `build/HealthSplitter`
 directory. Xcode builds use a separate directory per target and configuration.
 GitHub Actions runs Go race tests and vet on Linux, and builds the universal
-framework and exercises the Swift integration on macOS.
+framework, exercises the Swift integration, and builds the app and CLI through
+Xcode on macOS.

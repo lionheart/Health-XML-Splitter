@@ -55,6 +55,22 @@
 		D5D47A01012CA8A750637103 /* Pods-XML Splitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XML Splitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XML Splitter/Pods-XML Splitter.debug.xcconfig"; sourceTree = "<group>"; };
 		DBB52FA437DF34E60E01DEA2 /* Pods-Health XML Splitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Health XML Splitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Health XML Splitter/Pods-Health XML Splitter.release.xcconfig"; sourceTree = "<group>"; };
 		E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Health_XML_Splitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29110CF7B59EE3F3C3EB97E0 /* go.mod */ = {isa = PBXFileReference; lastKnownFileType = text; path = "go.mod"; sourceTree = "<group>"; };
+		569208A76800A0773539BCF0 /* go.sum */ = {isa = PBXFileReference; lastKnownFileType = text; path = "go.sum"; sourceTree = "<group>"; };
+		B6E2471201398336AA2D4998 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = "Makefile"; sourceTree = "<group>"; };
+		FF86ADCC69C343728439E1D7 /* engine.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "engine.go"; sourceTree = "<group>"; };
+		326AD5853DC1B2654F94B89C /* progress.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "progress.go"; sourceTree = "<group>"; };
+		947F7E47070514DD2B8FA21D /* engine_test.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "engine_test.go"; sourceTree = "<group>"; };
+		BA666995F3344E7AD9A93114 /* progress_test.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "progress_test.go"; sourceTree = "<group>"; };
+		B248254E1DFB3E1263E38D43 /* split.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "split.go"; sourceTree = "<group>"; };
+		2387929C8CDD2CCE855DF9E8 /* chunks.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "chunks.go"; sourceTree = "<group>"; };
+		5D873A7059BDF368B0B58CB4 /* sanitize.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sanitize.go"; sourceTree = "<group>"; };
+		F359199957464222057AB028 /* split_test.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "split_test.go"; sourceTree = "<group>"; };
+		FF8EDDA043FED229D9BF6B91 /* chunks_test.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "chunks_test.go"; sourceTree = "<group>"; };
+		C5DE513942478B2B4C7198AF /* sanitize_test.go */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sanitize_test.go"; sourceTree = "<group>"; };
+		E137DBE83916E8F92105B88D /* build-go-library.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-go-library.sh"; sourceTree = "<group>"; };
+		6B24B543DDE9E7B907828549 /* test-swift-bridge.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "test-swift-bridge.sh"; sourceTree = "<group>"; };
+		3A4108C788F59FD91485CB75 /* BridgeSmoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BridgeSmoke.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +107,7 @@
 		3701FFAE1F772C1300282157 = {
 			isa = PBXGroup;
 			children = (
+				BD9A660EA3CEB8A150781D34 /* Go */,
 				3701FFB91F772C1300282157 /* XML Splitter */,
 				377DDE512156A90D0012329F /* Health Data Importer XML Splitter */,
 				3701FFB81F772C1300282157 /* Products */,
@@ -141,6 +158,77 @@
 				E4EDED7498163675D01AFDF8 /* Pods_Health_XML_Splitter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD9A660EA3CEB8A150781D34 /* Go */ = {
+			isa = PBXGroup;
+			children = (
+				29110CF7B59EE3F3C3EB97E0 /* go.mod */,
+				569208A76800A0773539BCF0 /* go.sum */,
+				0DD65423901CDDEA56ADD266 /* bindings */,
+				3321793FC34108DBD849A016 /* internal */,
+				E6361D09F6A3CF63EBEBAE86 /* scripts */,
+				4D036E5C692F2553A4F05560 /* tests */,
+				B6E2471201398336AA2D4998 /* Makefile */,
+			);
+			name = Go;
+			sourceTree = "<group>";
+		};
+		0DD65423901CDDEA56ADD266 /* bindings */ = {
+			isa = PBXGroup;
+			children = (
+				A47C39AD8F6A226326883370 /* healthsplitter */,
+			);
+			path = "bindings";
+			sourceTree = "<group>";
+		};
+		A47C39AD8F6A226326883370 /* healthsplitter */ = {
+			isa = PBXGroup;
+			children = (
+				FF86ADCC69C343728439E1D7 /* engine.go */,
+				326AD5853DC1B2654F94B89C /* progress.go */,
+				947F7E47070514DD2B8FA21D /* engine_test.go */,
+				BA666995F3344E7AD9A93114 /* progress_test.go */,
+			);
+			path = "healthsplitter";
+			sourceTree = "<group>";
+		};
+		3321793FC34108DBD849A016 /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				28C740CCFB5F58EBED01E9A8 /* splitter */,
+			);
+			path = "internal";
+			sourceTree = "<group>";
+		};
+		28C740CCFB5F58EBED01E9A8 /* splitter */ = {
+			isa = PBXGroup;
+			children = (
+				B248254E1DFB3E1263E38D43 /* split.go */,
+				2387929C8CDD2CCE855DF9E8 /* chunks.go */,
+				5D873A7059BDF368B0B58CB4 /* sanitize.go */,
+				F359199957464222057AB028 /* split_test.go */,
+				FF8EDDA043FED229D9BF6B91 /* chunks_test.go */,
+				C5DE513942478B2B4C7198AF /* sanitize_test.go */,
+			);
+			path = "splitter";
+			sourceTree = "<group>";
+		};
+		E6361D09F6A3CF63EBEBAE86 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				E137DBE83916E8F92105B88D /* build-go-library.sh */,
+				6B24B543DDE9E7B907828549 /* test-swift-bridge.sh */,
+			);
+			path = "scripts";
+			sourceTree = "<group>";
+		};
+		4D036E5C692F2553A4F05560 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				3A4108C788F59FD91485CB75 /* BridgeSmoke.swift */,
+			);
+			path = "tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +342,16 @@
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = ();
-			inputPaths = ();
+			inputPaths = (
+				"$(SRCROOT)/go.mod",
+				"$(SRCROOT)/go.sum",
+				"$(SRCROOT)/scripts/build-go-library.sh",
+				"$(SRCROOT)/bindings/healthsplitter/engine.go",
+				"$(SRCROOT)/bindings/healthsplitter/progress.go",
+				"$(SRCROOT)/internal/splitter/split.go",
+				"$(SRCROOT)/internal/splitter/chunks.go",
+				"$(SRCROOT)/internal/splitter/sanitize.go",
+			);
 			name = "Build Go engine";
 			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework");
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,7 +363,16 @@
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = ();
-			inputPaths = ();
+			inputPaths = (
+				"$(SRCROOT)/go.mod",
+				"$(SRCROOT)/go.sum",
+				"$(SRCROOT)/scripts/build-go-library.sh",
+				"$(SRCROOT)/bindings/healthsplitter/engine.go",
+				"$(SRCROOT)/bindings/healthsplitter/progress.go",
+				"$(SRCROOT)/internal/splitter/split.go",
+				"$(SRCROOT)/internal/splitter/chunks.go",
+				"$(SRCROOT)/internal/splitter/sanitize.go",
+			);
 			name = "Build Go engine";
 			outputPaths = ("$(TARGET_TEMP_DIR)/HealthSplitter/HealthSplitter.xcframework");
 			runOnlyForDeploymentPostprocessing = 0;

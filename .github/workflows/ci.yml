@@ -33,4 +33,13 @@ jobs:
         with:
           go-version-file: go.mod
       - run: make test-swift-bridge
+      - name: Build app and CLI through Xcode
+        run: |
+          for scheme in "Health XML Splitter" "XML Splitter"; do
+            xcodebuild \
+              -project "XML Splitter.xcodeproj" \
+              -scheme "$scheme" -configuration Debug \
+              -derivedDataPath "$RUNNER_TEMP/HealthXMLSplitter" \
+              CODE_SIGNING_ALLOWED=NO ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO build
+          done
       - run: go mod tidy -diff
